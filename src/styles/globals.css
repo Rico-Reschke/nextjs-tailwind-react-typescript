@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
+body {
   @apply bg-black text-white;
-} */
+}
 
 body {
   height: 100vh;
