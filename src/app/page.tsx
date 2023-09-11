@@ -47,7 +47,7 @@ export default function HomePage() {
       </main>
 
       <footer className="text-white opacity-50">
-        <p>&copy; 2023 Crackstein</p>
+        <p className="px-4">&copy; 2023 Crackstein</p>
       </footer>
     </div>
   );
