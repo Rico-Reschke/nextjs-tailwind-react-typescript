@@ -6,8 +6,8 @@ export default function HomePage() {
   const [currentUser, setCurrentUser] = React.useState(null);
   return (
     <div className="container mx-auto flex h-screen flex-col justify-between">
-      <header className="flex justify-between py-2">
-        <h3 className="font-bold text-2xl">YelpCamp</h3>
+      <header className="flex justify-between py-2 px-5 sm:px-0">
+        <h3 className="font-bold text-xl md:text-2xl">YelpCamp</h3>
         <nav>
           <a className="nav-link active" aria-current="page" href="#">
             Home
@@ -32,10 +32,10 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <main className="flex flex-col items-center justify-center">
+      <main className="flex flex-col items-center justify-center ">
         <h1 className="font-bold text-2xl py-5">YelpCamp</h1>
         <p className="font-bold">Welcome to YelpCamp</p>
-        <p className="w-[600px] py-1">
+        <p className="w-[450px] sm:w-[600px] py-1">
           Lorem ipsum, dolor sit amet consectetur
           adipisicing elit. Iure maiores ipsa quia sint suscipit magnam aliquid
           fuga, doloremque obcaecati nostrum omnis fugit, quas deleniti. Quod
