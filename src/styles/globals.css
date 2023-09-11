@@ -6,6 +6,18 @@ body {
   @apply bg-black text-white;
 }
 
+.nav-link {
+  @apply py-1 font-semibold text-white opacity-50 ml-4 border-b-4 border-transparent;
+}
+
+.nav-link:hover {
+  @apply text-opacity-80 text-white opacity-50 border-b-white;
+}
+
+.nav-link.active {
+  @apply border-b-white text-white opacity-100;
+}
+
 body {
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -18,24 +30,6 @@ body {
 
 .cover-container {
   max-width: 60vw;
-}
-
-.nav-link {
-  padding: 0.25rem 0;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  margin-left: 1rem;
-  border-bottom: 0.25rem solid transparent;
-}
-
-.nav-link:hover {
-  color: rgba(255, 255, 255, 0.5);
-  border-bottom-color: rgba(255, 255, 255, 0.5);
-}
-
-.nav-link.active {
-  color: white;
-  border-bottom-color: rgb(255, 255, 255);
 }
 
 .btn-secondary,
