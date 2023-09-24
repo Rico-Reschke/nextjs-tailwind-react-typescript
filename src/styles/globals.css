@@ -15,15 +15,15 @@ body {
 }
 
 .nav-link {
-  @apply ml-4 border-b-4 border-transparent py-1 font-semibold text-white opacity-50;
+  @apply inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500;
 }
 
 .nav-link:hover {
-  @apply border-b-white text-white text-opacity-80 opacity-50;
+  @apply border-gray-300 text-gray-700;
 }
 
 .nav-link.active {
-  @apply border-b-white text-white opacity-100;
+  @apply inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900;
 }
 
 .cover-container {
