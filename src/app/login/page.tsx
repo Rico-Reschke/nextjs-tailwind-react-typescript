@@ -8,34 +8,32 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [currentUser, setCurrentUser] = useState(null);
   return (
     <>
       <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="flex self-center justify-center">
-        <a
-          href="#"
-          className="mb-6 flex items-center text-2xl font-semibold text-gray-900"
-        >
-          <Image
-            className="mr-2 h-8 w-8 "
-            width={40}
-            height={40}
-            src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
-            alt="logo"
-          />
-          Campground
-        </a>
+        <div className="flex justify-center self-center">
+          <a
+            href="#"
+            className="mb-6 flex items-center text-2xl font-semibold text-gray-900"
+          >
+            <Image
+              className="mr-2 h-8 w-8 "
+              width={40}
+              height={40}
+              src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
+              alt="logo"
+            />
+            Campground
+          </a>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" action="#" method="POST">
-              <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Sign in to your account
-              </h2>
+              </h1>
               <div>
                 <label
                   htmlFor="email"
