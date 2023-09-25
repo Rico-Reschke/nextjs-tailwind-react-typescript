@@ -1,22 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+"use client"
+
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar"
 
 const page = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentUser, setCurrentUser] = useState(null);
   return (
     <>
     <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <a href="/">
           <img
             className="mx-auto h-10 w-auto"
             src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
             alt="Your Company"
           />
+          </a>
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
