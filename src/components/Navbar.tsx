@@ -32,7 +32,7 @@ const Navbar = () => {
     router.refresh();
   };
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <Disclosure as="nav" className="">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
