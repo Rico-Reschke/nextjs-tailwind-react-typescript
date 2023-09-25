@@ -5,6 +5,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar"
+import Image from "next/image";
 
 const page = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -15,9 +16,11 @@ const page = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <a href="/">
-          <img
+          <Image
             className="mx-auto h-10 w-auto"
             src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
+            width={40}
+            height={40}
             alt="Your Company"
           />
           </a>

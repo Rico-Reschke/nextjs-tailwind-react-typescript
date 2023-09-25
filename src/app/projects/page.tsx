@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import React from "react";
+import Image from "next/image";
 
 const posts = [
   {
@@ -136,8 +137,10 @@ const page = () => {
                 className="flex flex-col items-start justify-between"
               >
                 <div className="relative w-full">
-                  <img
+                  <Image
                     src={post.imageUrl}
+                    width={40}
+                    height={40}
                     alt=""
                     className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                   />
@@ -167,8 +170,10 @@ const page = () => {
                     </p>
                   </div>
                   <div className="relative mt-8 flex items-center gap-x-4">
-                    <img
+                    <Image
                       src={post.author.imageUrl}
+                      width={40}
+                      height={40}
                       alt=""
                       className="h-10 w-10 rounded-full bg-gray-100"
                     />

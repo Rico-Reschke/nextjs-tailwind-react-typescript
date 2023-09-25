@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@flaticon/flaticon-uicons": "^2.4.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@react-icons/all-files": "^4.1.0",
     "next": "^13.5.3-canary.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
