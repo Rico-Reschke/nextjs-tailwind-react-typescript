@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 const page = () => {
@@ -12,26 +12,30 @@ const page = () => {
   const [currentUser, setCurrentUser] = useState(null);
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <a href="/">
+        <div className="flex self-center justify-center">
+        <a
+          href="#"
+          className="mb-6 flex items-center text-2xl font-semibold text-gray-900"
+        >
           <Image
-            className="mx-auto h-10 w-auto"
-            src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
+            className="mr-2 h-8 w-8 "
             width={40}
             height={40}
-            alt="Your Company"
+            src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
+            alt="logo"
           />
-          </a>
-          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
+          Campground
+        </a>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" action="#" method="POST">
+              <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                Sign in to your account
+              </h2>
               <div>
                 <label
                   htmlFor="email"
@@ -169,7 +173,7 @@ const page = () => {
               href="#"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              Start a 14 day free trial
+              Register
             </a>
           </p>
         </div>
