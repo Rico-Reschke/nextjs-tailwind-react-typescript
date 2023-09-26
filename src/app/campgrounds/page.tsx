@@ -1,15 +1,18 @@
-"use client";
-import React from "react";
-import { useState } from "react";
-import Link from "next/link"
-import Navbar from "@/components/Navbar"
+import { options } from "../api/auth/[...nextauth]/options"
+import { getServerSession } from "next-auth/next"
+import { redirect } from "next/navigation"
 
-const page = () => {
-  return (
-    <>
-    <Navbar />
-    </>
-  );
-};
+export default async function ServerPage() {
+    const session = await getServerSession(options)
 
-export default page;
+    if (!session) {
+        redirect('/login')
+    }
+
+    return (
+        <section className="flex flex-col gap-6">
+            <UserCard user={session?.user} pagetype={"Server"} />
+        </section>
+    )
+
+}
