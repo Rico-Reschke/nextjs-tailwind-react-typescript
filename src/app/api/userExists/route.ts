@@ -1,10 +1,8 @@
-import { connectMongoDB } from '@/lib/mongodb';
-import User from '@/models/user';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from 'next/server';
+import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/models/user";
+import { NextResponse } from "next/server";
 
-
-export async function POST(req: Request) {
+export async function POST(req: Response) {
   try {
     await connectMongoDB();
     const { email } = await req.json();

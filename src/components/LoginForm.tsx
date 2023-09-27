@@ -30,7 +30,7 @@ const Login = () => {
         return;
       }
 
-      router.replace("dashboard");
+      router.replace("campgrounds");
     } catch (error) {
       console.log(error);
     }

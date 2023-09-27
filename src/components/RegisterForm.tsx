@@ -142,7 +142,7 @@ const Register = () => {
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   />
                 </div>
-                {/* <div className="flex items-start">
+                <div className="flex items-start">
                   <div className="flex h-5 items-center">
                     <input
                       id="terms"
@@ -163,7 +163,7 @@ const Register = () => {
                       </a>
                     </label>
                   </div>
-                </div> */}
+                </div>
                 <button
                   className="cursor-pointer focus:ring-primary-300 w-full rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4"
                 >
@@ -178,7 +178,7 @@ const Register = () => {
                     Login here
                   </a>
                 </p>
-                {/* <div>
+                <div>
                   <div className="relative mt-10">
                     <div
                       className="absolute inset-0 flex items-center"
@@ -232,7 +232,7 @@ const Register = () => {
                       </span>
                     </a>
                   </div>
-                </div> */}
+                </div>
               </form>
               {error && (
                 <div className="mt-2 w-fit rounded-md bg-red-500 px-3 py-1 text-sm text-white">
