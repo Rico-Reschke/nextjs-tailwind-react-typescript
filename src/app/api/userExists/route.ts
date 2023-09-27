@@ -1,19 +1,15 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { connectMongoDB } from "../../../../lib/mongodb";
-import User from "../../../../models/user";
+import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/models/user";
+import { NextResponse } from "next/server";
 
-export async function POST(
-  req: NextApiRequest, 
-  res: NextApiResponse
-) {
+export async function POST(req: Request) {
   try {
     await connectMongoDB();
-    const { email } = req.body;
+    const { email } = await req.json();
     const user = await User.findOne({ email }).select("_id");
     console.log("user: ", user);
-    res.status(200).json({ user });
+    return NextResponse.json({ user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'An error occurred.' });
   }
 }
