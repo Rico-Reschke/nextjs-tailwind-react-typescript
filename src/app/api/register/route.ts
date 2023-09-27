@@ -1,23 +1,21 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 import { connectMongoDB } from "../../../../lib/mongodb";
 import User from "../../../../models/user";
-import bcrypt from "bcryptjs";
 
-// Benennen Sie die Funktion nach der HTTP-Methode, die sie behandeln soll
-export async function POST(
-  req: NextApiRequest, 
-  res: NextApiResponse,
-) {
+export async function POST(req: any) {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password } = await req.json();
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
     await User.create({ name, email, password: hashedPassword });
 
-    res.status(201).json({ message: "User registered." });
+    return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
-    res.status(500).json(
-      { message: "An error occurred while registering the user." }
+    return NextResponse.json(
+      { message: "An error occurred while registering the user." },
+      { status: 500 }
     );
   }
 }

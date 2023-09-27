@@ -17,49 +17,56 @@ const Register = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (!name || !email || !password) {
       setError("All fields are necessary.");
       return;
     }
-
+  
     try {
-      const resUserExists = await fetch("api/userExists", {
+      const resUserExists = await fetch("/api/userExists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
-
-      const { user } = await resUserExists.json();
-
-      if (user) {
-        setError("User already exists.");
-        return;
-      }
-
-      const res = await fetch("api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
-
-      if (res.ok) {
-        const form = e.target as HTMLFormElement;
-        form.reset();
-        router.push("/");
+  
+      // Überprüfen Sie den Status der Antwort
+      if (resUserExists.ok) {
+        const { user } = await resUserExists.json();
+  
+        if (user) {
+          setError("User already exists.");
+          return;
+        }
+  
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        });
+  
+        if (res.ok) {
+          const form = e.target as HTMLFormElement;
+          form.reset();
+          router.push("/");
+        } else {
+          setError('User registration failed.');
+        }
       } else {
-        console.log("User registration failed.");
+        // Fehlermeldung von der Serverantwort abrufen
+        const text = await resUserExists.text();
+        setError(`Error checking user existence: ${text}`);
       }
     } catch (error) {
-      console.log("Error during registration: ", error);
+      setError(`Error during registration: ${error}`);
     }
   };
 
