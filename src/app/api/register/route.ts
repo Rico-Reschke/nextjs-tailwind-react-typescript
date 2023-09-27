@@ -1,10 +1,9 @@
-
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { connectMongoDB } from "../../../../lib/mongodb";
-import User from "../../../../models/user";
+import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/models/user";
 
-export async function POST(req: any) {
+export async function POST(req: Request) {
   try {
     const { name, email, password } = await req.json();
     const hashedPassword = await bcrypt.hash(password, 10);
