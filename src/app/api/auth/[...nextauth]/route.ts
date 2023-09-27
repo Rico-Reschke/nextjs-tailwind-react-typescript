@@ -4,14 +4,22 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-export const authOptions = {
+interface Credentials {
+    email: string;
+    password: string;
+}
+
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {},
 
-      async authorize(credentials) {
-        const { email, password } = credentials;
+      async authorize(credentials: Record<never, string> | undefined, req) {
+        if (!credentials) {
+            return null;
+          }
+        const { email, password } = credentials as any;
 
         try {
           await connectMongoDB();
@@ -41,8 +49,8 @@ export const authOptions = {
   pages: {
     signIn: "/",
   },
-};
+} as any;
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, authOptions };

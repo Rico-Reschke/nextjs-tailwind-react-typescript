@@ -3,9 +3,10 @@ import { getServerSession } from "next-auth/next"
 import React from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
-  const session = await getServerSession(options)
+  const session = await getServerSession(authOptions);
   return (
     <>
     <Navbar />
