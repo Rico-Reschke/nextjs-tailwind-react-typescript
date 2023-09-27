@@ -1,12 +1,11 @@
-"use client";
-import { signIn } from 'next-auth/react'
+import { signIn } from "next-auth/react"
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
-const page = () => {
+const login = () => {
   return (
     <>
       <Navbar />
@@ -42,11 +41,11 @@ const page = () => {
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
+                    id="username"
+                    name="username"
                     placeholder="name@company.com"
-                    type="email"
-                    autoComplete="email"
+                    type="username"
+                    autoComplete="username"
                     required
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   />
@@ -181,4 +180,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default login;

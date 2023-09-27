@@ -1,4 +1,5 @@
 "use client";
+import { signOut } from "next-auth/react";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -250,15 +251,16 @@ const Navbar = () => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <Link
+                              onClick={() => signOut()}
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700",
                               )}
                             >
                               Sign out
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       </Menu.Items>
@@ -338,7 +340,7 @@ const Navbar = () => {
                 </Disclosure.Button>
                 <Disclosure.Button
                   as="a"
-                  href="#"
+                  href="/"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Sign out

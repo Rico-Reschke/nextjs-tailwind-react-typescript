@@ -2,7 +2,7 @@ import { options } from "../api/auth/[...nextauth]/options"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
-export default async function ServerPage() {
+export default async function Campground() {
     const session = await getServerSession(options)
 
     if (!session) {
@@ -10,9 +10,9 @@ export default async function ServerPage() {
     }
 
     return (
-        <section className="flex flex-col gap-6">
-            <UserCard user={session?.user} pagetype={"Server"} />
-        </section>
+        <div>
+          <h1>salat</h1>
+        </div>
     )
 
 }
