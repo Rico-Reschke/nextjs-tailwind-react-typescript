@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import User from "@/models/user";
-import { connectMongoDB } from "@/lib/mongodb";
-
+import { connectMongoDB } from '@/lib/mongodb';
+import User from '@/models/user';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
 
 export async function POST(req: Request) {

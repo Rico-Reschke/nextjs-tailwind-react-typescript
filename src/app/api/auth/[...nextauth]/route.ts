@@ -5,8 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
 interface Credentials {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 const authOptions = {
@@ -17,8 +17,8 @@ const authOptions = {
 
       async authorize(credentials: Record<never, string> | undefined, req) {
         if (!credentials) {
-            return null;
-          }
+          return null;
+        }
         const { email, password } = credentials as any;
 
         try {
