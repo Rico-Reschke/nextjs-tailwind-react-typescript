@@ -4,8 +4,8 @@ import React, { FormEvent } from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
+import Navbar from "./Navbar";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -17,12 +17,12 @@ const Register = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (!name || !email || !password) {
       setError("All fields are necessary.");
       return;
     }
-  
+
     try {
       const resUserExists = await fetch("/api/userExists", {
         method: "POST",
@@ -31,16 +31,16 @@ const Register = () => {
         },
         body: JSON.stringify({ email }),
       });
-  
+
       // Überprüfen Sie den Status der Antwort
       if (resUserExists.ok) {
         const { user } = await resUserExists.json();
-  
+
         if (user) {
           setError("User already exists.");
           return;
         }
-  
+
         const res = await fetch("/api/register", {
           method: "POST",
           headers: {
@@ -52,13 +52,13 @@ const Register = () => {
             password,
           }),
         });
-  
+
         if (res.ok) {
           const form = e.target as HTMLFormElement;
           form.reset();
           router.push("/");
         } else {
-          setError('User registration failed.');
+          setError("User registration failed.");
         }
       } else {
         // Fehlermeldung von der Serverantwort abrufen
@@ -164,9 +164,7 @@ const Register = () => {
                     </label>
                   </div>
                 </div>
-                <button
-                  className="cursor-pointer focus:ring-primary-300 w-full rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4"
-                >
+                <button className="focus:ring-primary-300 w-full cursor-pointer rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4">
                   Create an account
                 </button>
                 <p className="text-sm font-light text-gray-500">

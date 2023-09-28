@@ -1,8 +1,6 @@
-import { getServerSession } from "next-auth/next";
 import React from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import { useSession } from "next-auth/react";
+import Navbar from "@/components/elements/Navbar";
 
 export default function Home() {
   return (

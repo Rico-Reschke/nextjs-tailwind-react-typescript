@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
+import { AuthOptions } from "next-auth";
 
 interface Credentials {
   email: string;
@@ -49,7 +50,7 @@ const authOptions = {
   pages: {
     signIn: "/",
   },
-} as any;
+} satisfies AuthOptions;
 
 const handler = NextAuth(authOptions);
 

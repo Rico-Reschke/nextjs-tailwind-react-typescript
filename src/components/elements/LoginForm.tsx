@@ -1,12 +1,12 @@
 "use client";
 
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 import React, { FormEvent } from "react";
 import { useState } from "react";
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Navbar from "./Navbar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -58,7 +58,12 @@ const Login = () => {
 
         <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-            <form onSubmit={handleSubmit} className="space-y-6" action="#" method="POST">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              action="#"
+              method="POST"
+            >
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Sign in to your account
               </h1>
@@ -197,7 +202,7 @@ const Login = () => {
             </div>
           </div>
           {error && (
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+            <div className="mt-2 w-fit rounded-md bg-red-500 px-3 py-1 text-sm text-white">
               {error}
             </div>
           )}
