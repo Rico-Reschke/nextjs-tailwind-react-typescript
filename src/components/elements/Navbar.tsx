@@ -1,5 +1,5 @@
 "use client";
-import { SessionProvider, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -25,6 +25,8 @@ const Navbar = () => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
+
+  console.log(session);
 
   // useEffect(() => {
   //   setPathname(router.pathname);
