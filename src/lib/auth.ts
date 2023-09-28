@@ -1,4 +1,3 @@
-import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectMongoDB } from "@/lib/mongodb";
@@ -6,42 +5,46 @@ import User from "@/models/user";
 import { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {},
-
-      async authorize(credentials: Record<never, string> | undefined, req) {
-        console.log("LOGIN", credentials);
-        if (!credentials) {
-          return null;
-        }
-        const { email, password } = credentials as any;
-
-        try {
-          await connectMongoDB();
-          const user = await User.findOne({ email });
-
-          if (!user) {
-            return null;
-          }
-
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-
-          if (!passwordsMatch) {
-            return null;
-          }
-
-          return user;
-        } catch (error) {}
-      },
-    }),
-  ],
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/",
+    signIn: "/login",
   },
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log("LOGIN", credentials);
+
+        await connectMongoDB();
+
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        try {
+          const user =
+            (await User.findOne({ name: email })) ||
+            (await User.findOne({ email }));
+
+          if (!user) return null;
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordsMatch) return null;
+
+          return user;
+        } catch (error) {
+          return null;
+        }
+      },
+    }),
+  ],
 };
