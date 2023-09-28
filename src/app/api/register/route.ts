@@ -1,11 +1,13 @@
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
-export async function POST(req: Response) {
+export async function POST(req: Request) {
   try {
     const { name, email, password } = await req.json();
+    console.log("REGISTER", name, email, password);
+
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
     await User.create({ name, email, password: hashedPassword });
@@ -14,7 +16,7 @@ export async function POST(req: Response) {
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while registering the user." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -20,6 +20,7 @@ import { MdAppRegistration } from "react-icons/md";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+
 const Navbar = () => {
   const { data: session } = useSession();
   const pathName = usePathname();

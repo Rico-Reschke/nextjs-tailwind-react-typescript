@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { BsDiscord } from "react-icons/bs";
 import { RiTeamLine } from "react-icons/ri";
 import { PiReadCvLogoFill } from "react-icons/pi";
-import Footer from "@/components/Footer";
+import Footer from "@/components/elements/Footer";
+import Navbar from "@/components/elements/Navbar";
 
 const page = () => {
   return (
@@ -84,7 +84,7 @@ const page = () => {
             height="500"
             title="Discord Widget"
             frame-border="0"
-            className="inline-flex mt-3 shadow-2xl shadow-black"
+            className="mt-3 inline-flex shadow-2xl shadow-black"
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
           ></iframe>
         </div>
