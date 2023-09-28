@@ -1,8 +1,8 @@
-import { connectMongoDB } from "../../../../lib/mongodb";
-import User from "../../../../models/user";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/models/user";
 
 interface Credentials {
   email: string;

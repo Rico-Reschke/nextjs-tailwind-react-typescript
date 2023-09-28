@@ -1,15 +1,14 @@
-import { options } from "./api/auth/[...nextauth]/options"
-import { getServerSession } from "next-auth/next"
+import { getServerSession } from "next-auth/next";
 import React from "react";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/Navbar";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="homepage-background">
         <div className="container mx-auto flex h-screen flex-col justify-between">
           <main className="flex h-screen flex-col items-center justify-center">
