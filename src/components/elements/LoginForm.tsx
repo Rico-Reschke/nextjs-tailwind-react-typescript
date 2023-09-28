@@ -32,7 +32,7 @@ const Login = () => {
 
       router.replace("campgrounds");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
