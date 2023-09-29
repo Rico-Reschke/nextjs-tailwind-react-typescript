@@ -42,7 +42,7 @@ const Navbar = () => {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
-                <div className="-ml-2 mr-2 flex items-center lgcustom:hidden">
+                <div className="lgcustom:hidden -ml-2 mr-2 flex items-center">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Open main menu</span>
@@ -62,7 +62,7 @@ const Navbar = () => {
                     alt="Your Company"
                   />
                 </div>
-                <div className="hidden lgcustom:ml-6 lgcustom:flex lgcustom:space-x-8">
+                <div className="lgcustom:ml-6 lgcustom:flex lgcustom:space-x-8 hidden">
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                     <Link
@@ -204,17 +204,19 @@ const Navbar = () => {
                       Login
                     </Link>
                   )}
-                  <Link
-                    href="/register"
-                    type="button"
-                    className="inline-flex items-center gap-x-2 rounded-md bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    <MdAppRegistration
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                    Register
-                  </Link>
+                  {!session && (
+                    <Link
+                      href="/register"
+                      type="button"
+                      className="inline-flex items-center gap-x-2 rounded-md bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      <MdAppRegistration
+                        className="-ml-0.5 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                      Register
+                    </Link>
+                  )}
                 </div>
                 <div className="mdlgcustom:ml-4 hidden md:flex md:flex-shrink-0 md:items-center">
                   {/* Profile dropdown */}
