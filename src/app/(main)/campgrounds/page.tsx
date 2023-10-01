@@ -9,11 +9,10 @@ export default async function Campground() {
   if (!session) {
     redirect("/login");
   }
-
+  
   return (
     <div>
       <MapBox />
-      <div id="deine-map-id" style={{ width: "80%", height: "500px" }} />
     </div>
   );
 }

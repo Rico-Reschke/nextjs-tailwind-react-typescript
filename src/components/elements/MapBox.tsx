@@ -13,7 +13,7 @@ export default function MapBox() {
     });
   }, []);
   return (
-    <div>
+    <div id="deine-map-id" style={{ width: "80%", height: "500px" }}>
     </div>
   )
 }
