@@ -1,5 +1,6 @@
-"use client"
-import React, { useEffect, useRef } from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 
 export default function MapBox() {
@@ -12,8 +13,8 @@ export default function MapBox() {
       zoom: 9,
     });
   }, []);
+
   return (
-    <div id="deine-map-id" style={{ width: "80%", height: "500px" }}>
-    </div>
-  )
+    <div id="deine-map-id" style={{ width: "80%", height: "500px" }}></div>
+  );
 }

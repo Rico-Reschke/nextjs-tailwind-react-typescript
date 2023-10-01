@@ -1,56 +1,58 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  BsMoon,
-  BsSun,
-  BiDesktop,
-  MdAppRegistration,
-  RiLoginBoxLine,
-  BiPlus,
-} from "./Icon";
+import { BsSun, BsMoon } from "react-icons/bs";
+import { MdAppRegistration } from "react-icons/md";
+import { BiDesktop, BiPlus } from "react-icons/bi";
+import { RiLoginBoxLine } from "react-icons/ri";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = () => {
-  const [currentIcon, setCurrentIcon] = useState(<BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" /> );
+  const [currentIcon, setCurrentIcon] = useState(
+    <BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+  );
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
-  
+
   const [showSun, setShowSun] = useState(true);
   const [showMoon, setShowMoon] = useState(true);
-  const [showDesktop, setShowDesktop] = useState(false); 
-
-  
+  const [showDesktop, setShowDesktop] = useState(false);
 
   const handleSunClick = () => {
     setShowSun(false);
     setShowMoon(true);
     setShowDesktop(true);
-    setCurrentIcon(<BsSun className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+    setCurrentIcon(
+      <BsSun className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+    );
   };
-  
+
   const handleMoonClick = () => {
     setShowSun(true);
     setShowMoon(false);
     setShowDesktop(true);
-    setCurrentIcon(<BsMoon className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+    setCurrentIcon(
+      <BsMoon className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+    );
   };
-  
+
   const handleDesktopClick = () => {
     setShowSun(true);
     setShowMoon(true);
     setShowDesktop(false);
-    setCurrentIcon(<BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+    setCurrentIcon(
+      <BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+    );
   };
 
   // useEffect(() => {
@@ -61,7 +63,7 @@ const Navbar = () => {
     router.refresh();
   };
   return (
-    <Disclosure as="nav" className="dark:bg-gray-800 duration-100">
+    <Disclosure as="nav" className="duration-100 dark:bg-gray-800">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -130,7 +132,7 @@ const Navbar = () => {
                     className="relative mr-5 inline-block text-left"
                   >
                     <div>
-                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:ring-gray-800 dark:hover:bg-gray-700 ">
+                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:ring-gray-800 dark:hover:bg-gray-700 ">
                         {currentIcon}
                       </Menu.Button>
                     </div>
@@ -143,84 +145,84 @@ const Navbar = () => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
                         <div className="mx-2 py-1">
                           {showSun && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="#"
-                                onClick={handleSunClick}
-                                className={classNames(
-                                  active
-                                    ? "rounded-full bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "group flex items-center px-1 py-1",
-                                )}
-                              >
-                                <BsSun
-                                  className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                              </Link>
-                            )}
-                          </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="#"
+                                  onClick={handleSunClick}
+                                  className={classNames(
+                                    active
+                                      ? "rounded-full bg-gray-100 text-gray-900"
+                                      : "text-gray-700",
+                                    "group flex items-center px-1 py-1",
+                                  )}
+                                >
+                                  <BsSun
+                                    className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
+                                    aria-hidden="true"
+                                  />
+                                </Link>
+                              )}
+                            </Menu.Item>
                           )}
                           {showMoon && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="#"
-                                onClick={handleMoonClick}
-                                className={classNames(
-                                  active
-                                    ? "rounded-full bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "group flex items-center px-1 py-1",
-                                )}
-                              >
-                                <BsMoon
-                                  className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                              </Link>
-                            )}
-                          </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="#"
+                                  onClick={handleMoonClick}
+                                  className={classNames(
+                                    active
+                                      ? "rounded-full bg-gray-100 text-gray-900"
+                                      : "text-gray-700",
+                                    "group flex items-center px-1 py-1",
+                                  )}
+                                >
+                                  <BsMoon
+                                    className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
+                                    aria-hidden="true"
+                                  />
+                                </Link>
+                              )}
+                            </Menu.Item>
                           )}
                           {showDesktop && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="#"
-                                onClick={handleDesktopClick}
-                                className={classNames(
-                                  active
-                                    ? "rounded-full bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "group flex items-center px-1 py-1",
-                                )}
-                              >
-                                <BiDesktop
-                                  className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                              </Link>
-                            )}
-                          </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="#"
+                                  onClick={handleDesktopClick}
+                                  className={classNames(
+                                    active
+                                      ? "rounded-full bg-gray-100 text-gray-900"
+                                      : "text-gray-700",
+                                    "group flex items-center px-1 py-1",
+                                  )}
+                                >
+                                  <BiDesktop
+                                    className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
+                                    aria-hidden="true"
+                                  />
+                                </Link>
+                              )}
+                            </Menu.Item>
                           )}
                         </div>
                       </Menu.Items>
                     </Transition>
                   </Menu>
                   {session && (
-                  <Link
-                    href="/campgrounds/new"
-                    className="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    role="button"
-                  >
-                    <BiPlus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    New Campground
-                  </Link>
+                    <Link
+                      href="/campgrounds/new"
+                      className="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      role="button"
+                    >
+                      <BiPlus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                      New Campground
+                    </Link>
                   )}
                   {!session && (
                     <Link

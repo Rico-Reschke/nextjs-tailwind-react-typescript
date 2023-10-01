@@ -2,11 +2,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { BsDiscord } from "react-icons/bs";
 import { PiReadCvLogoFill } from "react-icons/pi";
 import Footer from "@/components/elements/Footer";
-import { RiTeamLine } from "react-icons/Ri";
+import { RiTeamLine } from "react-icons/ri";
 
 const page = () => {
   return (
