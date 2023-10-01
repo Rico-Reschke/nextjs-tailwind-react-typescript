@@ -4,15 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { BsDiscord } from "react-icons/bs";
-import { RiTeamLine } from "react-icons/ri";
 import { PiReadCvLogoFill } from "react-icons/pi";
 import Footer from "@/components/elements/Footer";
-import Navbar from "@/components/elements/Navbar";
+import { RiTeamLine } from "react-icons/Ri";
 
 const page = () => {
   return (
     <div>
-      <Navbar />
       <Image
         className="mx-auto my-10 rounded-full"
         width={110}

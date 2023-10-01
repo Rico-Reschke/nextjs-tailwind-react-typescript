@@ -38,24 +38,7 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 2xl:h-screen">
-        <div className="flex justify-center self-center">
-          <a
-            href="#"
-            className="mb-6 flex items-center text-2xl font-semibold text-gray-900"
-          >
-            <Image
-              className="mr-2 h-8 w-8 "
-              width={40}
-              height={40}
-              src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
-              alt="logo"
-            />
-            Campground
-          </a>
-        </div>
-
         <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form

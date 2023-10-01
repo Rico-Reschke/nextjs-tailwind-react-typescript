@@ -5,7 +5,6 @@ import Navbar from "@/components/elements/Navbar";
 export default function Home() {
   return (
     <>
-      <Navbar />
       <div className="homepage-background">
         <div className="container mx-auto flex h-screen flex-col justify-between">
           <main className="flex h-screen flex-col items-center justify-center">

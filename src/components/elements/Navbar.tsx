@@ -14,7 +14,7 @@ import {
   MdAppRegistration,
   RiLoginBoxLine,
   BiPlus,
-} from "./icons";
+} from "./Icon";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -212,14 +212,16 @@ const Navbar = () => {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                  <a
+                  {session && (
+                  <Link
                     href="/campgrounds/new"
                     className="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     role="button"
                   >
                     <BiPlus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                     New Campground
-                  </a>
+                  </Link>
+                  )}
                   {!session && (
                     <Link
                       href="/login"
