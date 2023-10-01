@@ -1,3 +1,4 @@
+import MapBox from "@/components/elements/MapBox";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
@@ -11,7 +12,8 @@ export default async function Campground() {
 
   return (
     <div>
-      <h1>salat</h1>
+      <MapBox />
+      <div id="deine-map-id" style={{ width: "80%", height: "500px" }} />
     </div>
   );
 }
