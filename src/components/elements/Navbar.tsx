@@ -1,7 +1,7 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,10 +21,37 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar = () => {
+  const [currentIcon, setCurrentIcon] = useState(<BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" /> );
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
-  const [icon, setIcon] = useState("ComputerDesktopIcon");
+  
+  const [showSun, setShowSun] = useState(true);
+  const [showMoon, setShowMoon] = useState(true);
+  const [showDesktop, setShowDesktop] = useState(false); 
+
+  
+
+  const handleSunClick = () => {
+    setShowSun(false);
+    setShowMoon(true);
+    setShowDesktop(true);
+    setCurrentIcon(<BsSun className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+  };
+  
+  const handleMoonClick = () => {
+    setShowSun(true);
+    setShowMoon(false);
+    setShowDesktop(true);
+    setCurrentIcon(<BsMoon className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+  };
+  
+  const handleDesktopClick = () => {
+    setShowSun(true);
+    setShowMoon(true);
+    setShowDesktop(false);
+    setCurrentIcon(<BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" />);
+  };
 
   // useEffect(() => {
   //   setPathname(router.pathname);
@@ -34,7 +61,7 @@ const Navbar = () => {
     router.refresh();
   };
   return (
-    <Disclosure as="nav" className="">
+    <Disclosure as="nav" className="dark:bg-gray-800 duration-100">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -67,7 +94,7 @@ const Navbar = () => {
                       href="/"
                       className={`nav-link ${pathName === "/" ? "active" : ""}`}
                     >
-                      Homepage
+                      <p className="dark:text-white">Homepage</p>
                     </Link>
                     <Link
                       href="/campgrounds"
@@ -75,7 +102,7 @@ const Navbar = () => {
                         pathName === "/campgrounds" ? "active" : ""
                       }`}
                     >
-                      Campgrounds
+                      <p className="dark:text-white">Campgrounds</p>
                     </Link>
                     <Link
                       href="/projects"
@@ -83,7 +110,7 @@ const Navbar = () => {
                         pathName === "/projects" ? "active" : ""
                       }`}
                     >
-                      Projects
+                      <p className="dark:text-white">Projects</p>
                     </Link>
                     <a
                       href="/discord"
@@ -91,7 +118,7 @@ const Navbar = () => {
                         pathName === "/discord" ? "active" : ""
                       }`}
                     >
-                      Discord
+                      <p className="dark:text-white">Discord</p>
                     </a>
                   </div>
                 </div>
@@ -103,11 +130,8 @@ const Navbar = () => {
                     className="relative mr-5 inline-block text-left"
                   >
                     <div>
-                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 ">
-                        <BiDesktop
-                          className="h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
+                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:ring-gray-800 dark:hover:bg-gray-700 ">
+                        {currentIcon}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -119,12 +143,14 @@ const Navbar = () => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="mx-2 py-1">
+                          {showSun && (
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <Link
                                 href="#"
+                                onClick={handleSunClick}
                                 className={classNames(
                                   active
                                     ? "rounded-full bg-gray-100 text-gray-900"
@@ -136,13 +162,16 @@ const Navbar = () => {
                                   className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
                                   aria-hidden="true"
                                 />
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
+                          )}
+                          {showMoon && (
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <Link
                                 href="#"
+                                onClick={handleMoonClick}
                                 className={classNames(
                                   active
                                     ? "rounded-full bg-gray-100 text-gray-900"
@@ -154,13 +183,16 @@ const Navbar = () => {
                                   className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
                                   aria-hidden="true"
                                 />
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
+                          )}
+                          {showDesktop && (
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <Link
                                 href="#"
+                                onClick={handleDesktopClick}
                                 className={classNames(
                                   active
                                     ? "rounded-full bg-gray-100 text-gray-900"
@@ -172,9 +204,10 @@ const Navbar = () => {
                                   className="flex h-5 w-5 self-center text-gray-400 group-hover:text-gray-500"
                                   aria-hidden="true"
                                 />
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
+                          )}
                         </div>
                       </Menu.Items>
                     </Transition>
