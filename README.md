@@ -13,3 +13,6 @@ pnpm dev
 npm install react
 yarn add react
 
+rh Standard komponente
+rl Nextjs Layout
+rp Nextjs Page

@@ -22,7 +22,7 @@ const Login = () => {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: true,
       });
 
       if (res && res.error) {
