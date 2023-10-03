@@ -86,7 +86,6 @@ const page = () => {
           ></iframe>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

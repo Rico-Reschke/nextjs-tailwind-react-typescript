@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Footer from "@/components/elements/Footer";
-import Navbar from "@/components/elements/Navbar";
 
 const posts = [
   {
@@ -193,7 +191,6 @@ const page = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

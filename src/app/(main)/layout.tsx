@@ -1,15 +1,14 @@
 import Footer from "@/components/elements/Footer";
 
-interface HomeLayoutProps {
+interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-export default function HomeLayout({ children }: HomeLayoutProps) {
-  console.log("HomeLayout");
-
+export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
       {children}
+      <Footer />
     </>
   );
 }

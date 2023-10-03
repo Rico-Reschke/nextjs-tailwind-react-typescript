@@ -1,12 +1,13 @@
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { CiViewList } from "react-icons/ci";
 
 const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -15,7 +16,7 @@ const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -24,7 +25,7 @@ const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -33,7 +34,7 @@ const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -42,7 +43,7 @@ const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -51,7 +52,7 @@ const people = [
   {
     name: "Jane Cooper",
     title: "Paradigm Representative",
-    role: "Admin",
+    role: "User",
     email: "janecooper@example.com",
     telephone: "+1-202-555-0170",
     imageUrl:
@@ -63,7 +64,7 @@ export default function Example() {
   return (
     <ul
       role="list"
-      className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+      className="mb-10 ml-36 mr-36 mt-10 grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
     >
       {people.map((person) => (
         <li
@@ -99,7 +100,7 @@ export default function Example() {
                   href={`mailto:${person.email}`}
                   className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                 >
-                  <EnvelopeIcon
+                  <CiViewList
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
@@ -111,7 +112,7 @@ export default function Example() {
                   href={`tel:${person.telephone}`}
                   className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                 >
-                  <PhoneIcon
+                  <AiFillEdit
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
@@ -123,7 +124,7 @@ export default function Example() {
                   href={`tel:${person.telephone}`}
                   className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                 >
-                  <PhoneIcon
+                  <AiFillDelete
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
