@@ -10,6 +10,13 @@
   @apply h-screen bg-black bg-cover bg-center text-white;
 }
 
+.SearchPadding {
+  padding-top: 0.60rem /* 12px */;
+  padding-bottom: 0.60rem /* 12px */;
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
+}
+
 .mapboxgl-ctrl-logo {
   display: none !important;
 }

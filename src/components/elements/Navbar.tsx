@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BsSun, BsMoon } from "react-icons/bs";
+import { BsSun, BsMoon, BsSearch } from "react-icons/bs";
 import { MdAppRegistration } from "react-icons/md";
 import { BiDesktop, BiPlus } from "react-icons/bi";
 import { RiLoginBoxLine } from "react-icons/ri";
@@ -60,12 +60,14 @@ const Navbar = () => {
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Zugriff auf das input-Element
     const query = (
       event.currentTarget.elements.namedItem("query") as HTMLInputElement
     ).value;
 
     console.log("Suche nach:", query);
+
+    // Programmatisch zum Suchergebnis weiterleiten
+    router.push(`/suche?query=${query}`);
   };
 
   return (
@@ -133,50 +135,50 @@ const Navbar = () => {
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Menu
-                    as="div"
-                    className="relative mr-5 inline-block text-left"
-                  >
-                    <div>
-                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:ring-gray-800 dark:hover:bg-gray-700">
-                        {FaSearch}
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute right-0 z-10 mt-3 origin-top-right divide-y divide-gray-100 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
-                        <div className="mx-5 py-1">
-                          <form
-                            action="/suche"
-                            method="get"
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") {
-                                e.stopPropagation();
-                              }
-                            }}
-                            onSubmit={handleSearchSubmit}
-                          >
-                            <input
-                              type="text"
-                              name="query"
-                              placeholder="Search Campgrounds"
-                            />
-                            <button type="submit">Suchen</button>
-                          </form>
+                  <div className="relative mr-6 inline-block text-left">
+                    {session && (
+                      <Menu as="div">
+                        <div>
+                          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white text-sm font-semibold">
+                            {FaSearch}
+                          </Menu.Button>
                         </div>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="absolute right-0 z-10 mt-3 origin-top-right divide-y divide-gray-100 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
+                            <div className="mx-5 py-1">
+                              <form
+                                action="/suche"
+                                method="get"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    e.stopPropagation();
+                                  }
+                                }}
+                                onSubmit={handleSearchSubmit}
+                              >
+                                <input
+                                  type="text"
+                                  name="query"
+                                  placeholder="Search Campgrounds"
+                                />
+                              </form>
+                            </div>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    )}
+                  </div>
                   <Menu
                     as="div"
-                    className="relative mr-5 inline-block text-left"
+                    className="relative mr-3 inline-block text-left"
                   >
                     <div>
                       <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:ring-gray-800 dark:hover:bg-gray-700">
