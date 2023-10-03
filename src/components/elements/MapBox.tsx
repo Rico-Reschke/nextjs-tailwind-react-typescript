@@ -22,7 +22,7 @@ export default function MapBox() {
 
   return (
     <div className="flex items-center justify-center">
-      <div id="map" style={{ width: "80%", height: "28em" }} />
+      <div id="map" style={{ width: "80%", height: "28em", marginTop: "20px" }} />
     </div>
   );
 }
