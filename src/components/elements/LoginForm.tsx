@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Navbar from "./Navbar";
+import Navbar from "../container/Navbar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
