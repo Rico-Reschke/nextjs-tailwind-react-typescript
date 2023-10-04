@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { connectMongoDB } from "@/lib/mongodb";
 import { NextAuthOptions } from "next-auth";
 import User from "@/models/user";
+import { log } from "console";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -20,7 +21,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("LOGIN", credentials);
+        log("LOGIN", credentials);
 
         await connectMongoDB();
 
