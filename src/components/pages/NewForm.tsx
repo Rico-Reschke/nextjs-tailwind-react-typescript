@@ -19,13 +19,16 @@ const NewCampgroundForm = () => {
       description,
       // image,
     };
+
+    const response = await axios.post("/api/campgrounds", formData);
+
     // const formDataForAPI = new FormData();
     // for (let key in formData) {
     //   formDataForAPI.append(key, formData[key] as string | Blob);
     // }
 
     // try {
-    //   const response = await axios.post("/api/campgrounds", formDataForAPI);
+
     //   console.log(response.data);
     //   alert("Campground erfolgreich hinzugefügt!");
     // } catch (error) {
