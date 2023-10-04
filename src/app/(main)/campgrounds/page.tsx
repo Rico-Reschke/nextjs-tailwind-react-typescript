@@ -11,19 +11,18 @@ export default function Campground() {
   useEffect(() => {
     const fetechedCampgrounds = async () => {
       const res = await axios.get("/api/campgrounds");
+      console.log(res.data);
       setCampgrounds(res.data);
     };
     fetechedCampgrounds();
   }, []);
-
-  console.log(campgrounds);
 
   return (
     <>
       <MapBox />
       <Campgrounds />
       {campgrounds.map((campground) => (
-        <></>
+        <>asd</>
       ))}
     </>
   );
