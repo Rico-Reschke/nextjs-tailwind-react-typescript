@@ -1,6 +1,6 @@
 import NewForm from "@/components/elements/NewForm";
 
 
-export default async function Register() {
+export default function Register() {
   return <NewForm />;
 }
