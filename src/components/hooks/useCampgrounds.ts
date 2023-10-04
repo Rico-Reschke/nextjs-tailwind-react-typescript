@@ -9,7 +9,7 @@ export default function useCampgrounds() {
     async function fetchCampgrounds() {
       try {
         const response = await axios.get('/api/campgrounds');
-        setCampgrounds(response.data.campgrounds);
+        setCampgrounds(response.data);
       } catch (error) {
         console.error(error);
       } finally {

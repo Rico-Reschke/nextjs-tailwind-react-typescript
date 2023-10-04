@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { CiViewList } from "react-icons/ci";
-import useCampgrounds from "../../app/hooks/useCampgrounds";
+import useCampgrounds from "../hooks/useCampgrounds";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import {
   Key,
@@ -12,15 +12,19 @@ import {
   ReactPortal,
   PromiseLikeOfReactNode,
 } from "react";
-import email from "next-auth/providers/email";
 
 export default function Example() {
+  const { campgrounds, loading } = useCampgrounds();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <ul
       role="list"
       className="mb-10 ml-36 mr-36 mt-10 grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
     >
-      {[].map(
+      {campgrounds.map(
         (campground: {
           email: Key | null | undefined;
           imageUrl: string | StaticImport;
