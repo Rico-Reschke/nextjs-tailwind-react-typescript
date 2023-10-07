@@ -3,10 +3,7 @@
 import { signIn } from "next-auth/react";
 import React, { FormEvent } from "react";
 import { useState } from "react";
-
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Navbar from "../container/Navbar";
 
 const Login = () => {
   const [email, setEmail] = useState("");

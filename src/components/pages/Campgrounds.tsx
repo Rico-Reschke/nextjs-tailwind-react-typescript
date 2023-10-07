@@ -1,3 +1,5 @@
+import useState from "react";
+import useRouter from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
@@ -15,10 +17,7 @@ import {
 
 export default function Example() {
   const { campgrounds, loading } = useCampgrounds();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  
   return (
     <ul
       role="list"

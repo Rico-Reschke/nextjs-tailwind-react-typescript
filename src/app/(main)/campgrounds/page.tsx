@@ -22,7 +22,9 @@ export default function Campground() {
       <MapBox />
       <Campgrounds />
       {campgrounds.map((campground) => (
-        <>asd</>
+        <>
+        
+        </>
       ))}
     </>
   );

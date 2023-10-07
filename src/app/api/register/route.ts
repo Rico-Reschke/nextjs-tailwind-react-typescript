@@ -1,4 +1,4 @@
-import { connectMongoDB } from "@/lib/mongodb";
+import { connectMongoDB } from "@/libs/mongodb";
 import User from "@/models/user";
 import bcrypt from "bcryptjs";
 import { log } from "console";

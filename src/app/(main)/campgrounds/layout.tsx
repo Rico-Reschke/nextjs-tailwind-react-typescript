@@ -1,7 +1,6 @@
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/libs/auth";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-
 
 interface CampgroundsLayoutProps {
   children: React.ReactNode;
