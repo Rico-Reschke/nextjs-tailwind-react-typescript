@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { CiViewList } from "react-icons/ci";
 
 const getCampgrounds = async () => {

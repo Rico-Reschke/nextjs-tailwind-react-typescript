@@ -25,6 +25,24 @@ const NewCampgroundForm = () => {
     }
   };
 
+  const validateInput = (event: any) => {
+    const input = event.target;
+    const feedbackElement = input.nextElementSibling;
+    if (feedbackElement) {
+      if (input.value.length > 0) {
+        feedbackElement.textContent = "Looks good!";
+        feedbackElement.classList.remove("text-red-500");
+        feedbackElement.classList.add("text-green-500");
+      } else {
+        feedbackElement.textContent = "This field is required.";
+        feedbackElement.classList.remove("text-green-500");
+        feedbackElement.classList.add("text-red-500");
+      }
+    } else {
+      console.warn("Feedback element not found");
+    }
+  };
+
   return (
     <section className="bg-white">
       <div className="mx-auto mt-4 flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
