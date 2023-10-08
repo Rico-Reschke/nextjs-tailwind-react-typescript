@@ -1,31 +1,23 @@
-import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
-import bcrypt from "bcryptjs";
+import connectMongoDB from "@/libs/mongodb";
+import Campground from "@/models/Campground";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  try {
-    const json = await req.json();
-    console.log("Campground", json);
-
-    return NextResponse.json({ message: "User registered." }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "An error occurred while registering the user." },
-      { status: 500 },
-    );
-  }
+export async function POST(req: any) {
+  const { title, location, price, description } = await req.json();
+  await connectMongoDB();
+  await Campground.create({ title, location, price, description });
+  return NextResponse.json({ message: "Campground Created" }, { status: 201 });
 }
 
-export async function GET(req: Request) {
-  try {
-    // const camps = camps.mongodb
+export async function GET() {
+  await connectMongoDB();
+  const campgrounds = await Campground.find();
+  return NextResponse.json({ campgrounds });
+}
 
-    return NextResponse.json([], { status: 200 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "An error occurred while registering the user." },
-      { status: 500 },
-    );
-  }
+export async function DELETE(req: any) {
+  const id = req.nextUrl.searchParams.get("id");
+  await connectMongoDB();
+  await Campground.findByIdAndDelete(id);
+  return NextResponse.json({ message: "Campground deleted" }, { status: 200 });
 }

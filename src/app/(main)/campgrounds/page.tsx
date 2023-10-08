@@ -20,10 +20,6 @@ export default function Campground() {
   return (
     <>
       <MapBox />
-      <Campgrounds />
-      {campgrounds.map((campground) => (
-        <>asd</>
-      ))}
     </>
   );
 }

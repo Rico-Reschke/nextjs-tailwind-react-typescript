@@ -1,6 +1,6 @@
-"use client";
+"use client"
+
 import React, { useState } from "react";
-import axios from "axios";
 
 const NewCampgroundForm = () => {
   const [title, setTitle] = useState<string>("");
@@ -9,32 +9,20 @@ const NewCampgroundForm = () => {
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const formData = {
-      title,
-      location,
-      price,
-      description,
-      // image,
-    };
-
-    const response = await axios.post("/api/campgrounds", formData);
-
-    // const formDataForAPI = new FormData();
-    // for (let key in formData) {
-    //   formDataForAPI.append(key, formData[key] as string | Blob);
-    // }
-
-    // try {
-
-    //   console.log(response.data);
-    //   alert("Campground erfolgreich hinzugefügt!");
-    // } catch (error) {
-    //   console.error("Ein Fehler ist aufgetreten:", error);
-    //   alert("Es gab einen Fehler beim Hinzufügen des Campgrounds.");
-    // }
+    try {
+      const res = await fetch("http://127.0.0.1:3000/api/campgrounds", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ title, location, price, description  }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

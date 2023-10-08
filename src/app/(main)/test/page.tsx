@@ -1,33 +1,71 @@
 import Image from "next/image";
-import Link from "next/link";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { CiViewList } from "react-icons/ci";
+import Link from "next/link";
 
-const getCampgrounds = async () => {
-  try {
-    const res = await fetch("http://127.0.0.1:3000/api/campgrounds", {
-      cache: "no-store",
-    });
+const people = [
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  {
+    title: "Jane Cooper",
+    location: "Paradigm Representative",
+    price: 100,
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+];
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log("Error loading topics: ", error);
-  }
-};
-
-export default async function Example() {
-  const { campgrounds } = await getCampgrounds();
-
+export default function Test() {
   return (
     <ul
       role="list"
       className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3"
     >
-      {campgrounds.map((t: any) => (
+      {people.map((t) => (
         <li
           key={t._id}
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
@@ -37,7 +75,7 @@ export default async function Example() {
             width={256}
             height={256}
             className="aspect-[3/2] w-full rounded-2xl object-cover"
-            src={""}
+            src={t.image}
             alt=""
           />
           </div>
