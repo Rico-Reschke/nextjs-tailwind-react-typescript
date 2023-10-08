@@ -21,20 +21,25 @@ const NewCampgroundForm = () => {
     };
 
     const response = await axios.post("/api/campgrounds", formData);
+  };
 
-    // const formDataForAPI = new FormData();
-    // for (let key in formData) {
-    //   formDataForAPI.append(key, formData[key] as string | Blob);
-    // }
-
-    // try {
-
-    //   console.log(response.data);
-    //   alert("Campground erfolgreich hinzugefügt!");
-    // } catch (error) {
-    //   console.error("Ein Fehler ist aufgetreten:", error);
-    //   alert("Es gab einen Fehler beim Hinzufügen des Campgrounds.");
-    // }
+  const validateInput = (event: any) => {
+    const input = event.target;
+    const feedbackElement = input.nextElementSibling;
+    if (feedbackElement) {
+      // Überprüfen, ob feedbackElement existiert und nicht null ist
+      if (input.value.length > 0) {
+        feedbackElement.textContent = "Looks good!";
+        feedbackElement.classList.remove("text-red-500");
+        feedbackElement.classList.add("text-green-500");
+      } else {
+        feedbackElement.textContent = "This field is required.";
+        feedbackElement.classList.remove("text-green-500");
+        feedbackElement.classList.add("text-red-500");
+      }
+    } else {
+      console.warn("Feedback element not found");
+    }
   };
 
   return (
@@ -58,10 +63,12 @@ const NewCampgroundForm = () => {
                   name="title"
                   id="title"
                   value={title}
+                  onBlur={validateInput}
                   onChange={(e) => setTitle(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Enter the title"
                 />
+                <div className="mt-1 text-green-500 text-sm"></div>
               </div>
               <div>
                 <label
@@ -75,10 +82,12 @@ const NewCampgroundForm = () => {
                   name="location"
                   id="location"
                   value={location}
+                  onBlur={validateInput}
                   onChange={(e) => setLocation(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Location, City, or Address"
                 />
+                <div className="mt-1 text-green-500 text-sm"></div>
               </div>
               <div>
                 <label
@@ -92,10 +101,12 @@ const NewCampgroundForm = () => {
                   name="price"
                   id="price"
                   value={price}
+                  onBlur={validateInput}
                   onChange={(e) => setPrice(parseInt(e.target.value))}
                   placeholder="0.00"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                 />
+                <div className="mt-1 text-green-500 text-sm"></div>
               </div>
               <div>
                 <label
@@ -108,10 +119,12 @@ const NewCampgroundForm = () => {
                   name="description"
                   id="description"
                   value={description}
+                  onBlur={validateInput}
                   onChange={(e) => setDescription(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Enter a description"
                 ></textarea>
+                <div className="mt-1 text-green-500 text-sm"></div>
               </div>
               <div>
                 <label
