@@ -2,11 +2,12 @@ import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
 import { NextResponse } from "next/server";
 
+
 export async function POST(req: any) {
-  const { title, location, price, description } = await req.json();
-  await connectMongoDB();
-  await Campground.create({ title, location, price, description });
-  return NextResponse.json({ message: "Campground Created" }, { status: 201 });
+    const { title, location, price, description } = await req.json();
+    await connectMongoDB();
+    Campground.create({ title, location, price, description });
+    return NextResponse.json({ message: "Campground created successfully" }, { status: 201 });
 }
 
 export async function GET() {
