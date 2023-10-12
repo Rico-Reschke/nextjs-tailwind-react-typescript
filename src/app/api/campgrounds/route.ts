@@ -15,8 +15,9 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
+    console.log(data);
     const file = data.file as File;
-    // writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
+    writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
 
     const uploaded = await uploadImage(file);
 
