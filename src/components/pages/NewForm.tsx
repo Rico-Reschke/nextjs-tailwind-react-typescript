@@ -25,11 +25,9 @@ const NewCampgroundForm = () => {
       // );
       // const uploadedImageData = await uploadResponse.json();
       // const imageUrl = uploadedImageData.secure_url;
-      // console.log(imageUrl);
 
       // formData.delete("file");
       // formData.delete("upload_preset");
-      // console.log(data)
 
       const res = await fetch("/api/campgrounds", {
         method: "POST",

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function Upload() {
@@ -24,7 +24,6 @@ export default function Upload() {
     const uploadedImageData = await uploadResponse.json();
     const imageUrl = uploadedImageData.secure_url;
     setImageUrl(imageUrl);
-    console.log(data);
   }
 
   return (

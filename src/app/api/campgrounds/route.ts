@@ -1,16 +1,28 @@
+import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
+import { v2 as cloudinary } from "cloudinary";
 import { writeFileSync } from "fs";
 import { NextResponse } from "next/server";
+
+cloudinary.config({
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+});
 
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
+    const file = data.file as File;
+    // writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
+
+    const uploaded = await uploadImage(file);
+
+    console.log(uploaded?.url);
+
     // const { title, location, price, description, imageUrl } = await request.json();
-    console.log(data);
-    const file: File = data.file as File;
-    writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
 
     await connectMongoDB();
     // await Campground.create({ title, location, price, description, imageUrl });

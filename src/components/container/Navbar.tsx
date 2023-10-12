@@ -1,17 +1,16 @@
 "use client";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter, usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BsSun, BsMoon, BsSearch } from "react-icons/bs";
-import { MdAppRegistration } from "react-icons/md";
+import { usePathname, useRouter } from "next/navigation";
+import React, { Fragment, useState } from "react";
+import { AiFillCloseSquare, AiOutlineMenu } from "react-icons/ai";
 import { BiDesktop, BiPlus } from "react-icons/bi";
-import { RiLoginBoxLine } from "react-icons/ri";
+import { BsMoon, BsSun } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
+import { MdAppRegistration } from "react-icons/md";
+import { RiLoginBoxLine } from "react-icons/ri";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -64,8 +63,6 @@ const Navbar = () => {
       event.currentTarget.elements.namedItem("query") as HTMLInputElement
     ).value;
 
-    console.log("Suche nach:", query);
-
     // Programmatisch zum Suchergebnis weiterleiten
     router.push(`/suche?query=${query}`);
   };
@@ -82,9 +79,15 @@ const Navbar = () => {
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                      <AiFillCloseSquare
+                        className="block h-6 w-6"
+                        aria-hidden="true"
+                      />
                     ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                      <AiOutlineMenu
+                        className="block h-6 w-6"
+                        aria-hidden="true"
+                      />
                     )}
                   </Disclosure.Button>
                 </div>
