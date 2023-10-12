@@ -3,10 +3,10 @@ import Campground from "@/models/Campground";
 import { NextResponse } from "next/server";
 
 
-export async function POST(req: any) {
-    const { title, location, price, description } = await req.json();
+export async function POST(request: any) {
+    const { title, location, price, description, imageUrl } = await request.json();
     await connectMongoDB();
-    Campground.create({ title, location, price, description });
+    Campground.create({ title, location, price, description, imageUrl });
     return NextResponse.json({ message: "Campground created successfully" }, { status: 201 });
 }
 
@@ -16,8 +16,8 @@ export async function GET() {
   return NextResponse.json({ campgrounds });
 }
 
-export async function DELETE(req: any) {
-  const id = req.nextUrl.searchParams.get("id");
+export async function DELETE(request: any) {
+  const id = request.nextUrl.searchParams.get("id");
   await connectMongoDB();
   await Campground.findByIdAndDelete(id);
   return NextResponse.json({ message: "Campground deleted" }, { status: 200 });

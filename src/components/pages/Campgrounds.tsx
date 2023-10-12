@@ -14,7 +14,7 @@ const getCampgrounds = async () => {
 
     return res.json();
   } catch (error) {
-    console.log("Error loading topics: ", error);
+    console.log("Error loading campgrounds: ", error);
   }
 };
 
@@ -31,15 +31,15 @@ export default async function Example() {
           key={t._id}
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
         >
-            <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8">
-          <Image
-            width={256}
-            height={256}
-            className="aspect-[3/2] w-full rounded-2xl object-cover"
-            src={""}
-            alt=""
-          />
-          </div>
+          <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8"></div>
+          {imageUrl && (
+            <Image
+              width={500}
+              height={350}
+              alt="Campground Image"
+              src={imageUrl}
+            />
+          )}
           <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8">
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Title</dt>

@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { PiReadCvLogoFill } from "react-icons/pi";
 import { RiTeamLine } from "react-icons/ri";
 
-const page = () => {
+const Discord = () => {
   return (
     <div>
       <Image
@@ -89,4 +89,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Discord;

@@ -1,11 +1,11 @@
-import NewCard from "@/components/pages/NewCard";
+import Campgrounds from "../../../components/pages/Campgrounds";
 import MapBox from "@/components/utils/MapBox";
 
 export default function Campground() {
   return (
     <>
       <MapBox />
-      <NewCard />
+      <Campgrounds />
     </>
   );
 }
