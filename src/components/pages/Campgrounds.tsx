@@ -19,7 +19,7 @@ const getCampgrounds = async () => {
 };
 
 export default async function Example() {
-  const { campgrounds } = await getCampgrounds();
+    const { campgrounds } = await getCampgrounds();
 
   return (
     <ul
@@ -32,12 +32,12 @@ export default async function Example() {
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
         >
           <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8"></div>
-          {imageUrl && (
+          {t.imageUrl && (
             <Image
               width={500}
               height={350}
               alt="Campground Image"
-              src={imageUrl}
+              src={t.imageUrl}
             />
           )}
           <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8">

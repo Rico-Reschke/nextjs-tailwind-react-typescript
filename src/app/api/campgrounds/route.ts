@@ -4,10 +4,15 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(request: any) {
+    try {
     const { title, location, price, description, imageUrl } = await request.json();
     await connectMongoDB();
-    Campground.create({ title, location, price, description, imageUrl });
+    await Campground.create({ title, location, price, description, imageUrl });
     return NextResponse.json({ message: "Campground created successfully" }, { status: 201 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: "Internal Server Error"}, { status: 500 });
+}
 }
 
 export async function GET() {

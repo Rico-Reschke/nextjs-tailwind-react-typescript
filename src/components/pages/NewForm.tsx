@@ -1,24 +1,51 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const NewCampgroundForm = () => {
-  const [title, setTitle] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
-  const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: any) => {
     try {
+      const image = data.imageUrl[0];
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("location", data.location);
+      formData.append("price", data.price);
+      formData.append("description", data.description);
+      formData.append("file", image);
+      formData.append("upload_preset", "ricoshub");
+
+      const uploadResponse = await fetch(
+        "https://api.cloudinary.com/v1_1/dcfnc8ajj/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+      const uploadedImageData = await uploadResponse.json();
+      const imageUrl = uploadedImageData.secure_url;
+      console.log(imageUrl);
+
+      formData.delete("file");
+      formData.delete("upload_preset");
+      console.log(data)
+
+      const campgroundData = {
+        title: data.title,
+        location: data.location,
+        price: data.price,
+        description: data.description,
+        imageUrl: imageUrl,
+      };
+
       const res = await fetch("http://127.0.0.1:3000/api/campgrounds", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ title, location, price, description  }),
+        body: JSON.stringify(campgroundData),
       });
     } catch (error) {
       console.log(error);
@@ -51,7 +78,10 @@ const NewCampgroundForm = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Create an New Campground
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div>
                 <label
                   htmlFor="title"
@@ -60,16 +90,15 @@ const NewCampgroundForm = () => {
                   Title
                 </label>
                 <input
+                  {...register("title")}
                   type="text"
                   name="title"
                   id="title"
-                  value={title}
                   onBlur={validateInput}
-                  onChange={(e) => setTitle(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Enter the title"
                 />
-                <div className="mt-1 text-green-500 text-sm"></div>
+                <div className="mt-1 text-sm text-green-500"></div>
               </div>
               <div>
                 <label
@@ -79,16 +108,15 @@ const NewCampgroundForm = () => {
                   Location
                 </label>
                 <input
+                  {...register("location")}
                   type="text"
                   name="location"
                   id="location"
-                  value={location}
                   onBlur={validateInput}
-                  onChange={(e) => setLocation(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Location, City, or Address"
                 />
-                <div className="mt-1 text-green-500 text-sm"></div>
+                <div className="mt-1 text-sm text-green-500"></div>
               </div>
               <div>
                 <label
@@ -98,16 +126,15 @@ const NewCampgroundForm = () => {
                   Campground Price
                 </label>
                 <input
+                  {...register("price")}
                   type="number"
                   name="price"
                   id="price"
-                  value={price}
                   onBlur={validateInput}
-                  onChange={(e) => setPrice(parseInt(e.target.value))}
                   placeholder="0.00"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                 />
-                <div className="mt-1 text-green-500 text-sm"></div>
+                <div className="mt-1 text-sm text-green-500"></div>
               </div>
               <div>
                 <label
@@ -117,34 +144,30 @@ const NewCampgroundForm = () => {
                   Description
                 </label>
                 <textarea
+                  {...register("description")}
                   name="description"
                   id="description"
-                  value={description}
                   onBlur={validateInput}
-                  onChange={(e) => setDescription(e.target.value)}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="Enter a description"
                 ></textarea>
-                <div className="mt-1 text-green-500 text-sm"></div>
+                <div className="mt-1 text-sm text-green-500"></div>
               </div>
               <div>
-                {/* <label
-                  htmlFor="image"
+                <label
+                  htmlFor="file"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Image
                 </label>
                 <input
+                  {...register("imageUrl")}
                   type="file"
-                  name="image"
-                  id="image"
+                  aria-describedby="file_input_help"
+                  id="file_input"
                   accept="image/*"
-                  onChange={(e) =>
-                    setImage(e.target.files ? e.target.files[0] : null)
-                  }
-                  value={image ? image.name : ""}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
-                /> */}
+                />
               </div>
               <button
                 type="submit"
