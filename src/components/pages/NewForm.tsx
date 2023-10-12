@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const NewCampgroundForm = () => {
@@ -17,35 +16,24 @@ const NewCampgroundForm = () => {
       formData.append("file", image);
       formData.append("upload_preset", "ricoshub");
 
-      const uploadResponse = await fetch(
-        "https://api.cloudinary.com/v1_1/dcfnc8ajj/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
-      const uploadedImageData = await uploadResponse.json();
-      const imageUrl = uploadedImageData.secure_url;
-      console.log(imageUrl);
+      // const uploadResponse = await fetch(
+      //   "https://api.cloudinary.com/v1_1/dcfnc8ajj/image/upload",
+      //   {
+      //     method: "POST",
+      //     body: formData,
+      //   },
+      // );
+      // const uploadedImageData = await uploadResponse.json();
+      // const imageUrl = uploadedImageData.secure_url;
+      // console.log(imageUrl);
 
-      formData.delete("file");
-      formData.delete("upload_preset");
-      console.log(data)
+      // formData.delete("file");
+      // formData.delete("upload_preset");
+      // console.log(data)
 
-      const campgroundData = {
-        title: data.title,
-        location: data.location,
-        price: data.price,
-        description: data.description,
-        imageUrl: imageUrl,
-      };
-
-      const res = await fetch("http://127.0.0.1:3000/api/campgrounds", {
+      const res = await fetch("/api/campgrounds", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(campgroundData),
+        body: formData,
       });
     } catch (error) {
       console.log(error);

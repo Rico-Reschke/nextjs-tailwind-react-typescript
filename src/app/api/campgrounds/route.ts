@@ -1,18 +1,30 @@
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
+import { writeFileSync } from "fs";
 import { NextResponse } from "next/server";
 
+export async function POST(request: Request) {
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData.entries());
+    // const { title, location, price, description, imageUrl } = await request.json();
+    console.log(data);
+    const file: File = data.file as File;
+    writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
 
-export async function POST(request: any) {
-    try {
-    const { title, location, price, description, imageUrl } = await request.json();
     await connectMongoDB();
-    await Campground.create({ title, location, price, description, imageUrl });
-    return NextResponse.json({ message: "Campground created successfully" }, { status: 201 });
+    // await Campground.create({ title, location, price, description, imageUrl });
+    return NextResponse.json(
+      { message: "Campground created successfully" },
+      { status: 201 },
+    );
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: "Internal Server Error"}, { status: 500 });
-}
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function GET() {
