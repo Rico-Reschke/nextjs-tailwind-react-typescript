@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { CiViewList } from 'react-icons/ci';
+import Image from "next/image";
+import Link from "next/link";
+import { CiViewList } from "react-icons/ci";
 
 const getCampgrounds = async () => {
   try {
@@ -24,46 +24,50 @@ export default async function Example() {
   return (
     <ul
       role="list"
-      className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3"
+      className="mx-5 mt-5 grid grid-cols-1 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
     >
       {campgrounds.map((t: any) => (
         <li
           key={t._id}
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
         >
-          <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8"></div>
-          {t.imageUrl && (
-            <Image
-              width={500}
-              height={350}
-              alt="Campground Image"
-              src={t.imageUrl}
-            />
-          )}
+          <div className="relative h-96 w-full">
+            {t.imageUrl && (
+              <Image
+                className="w-300 h-300"
+                objectFit="cover"
+                layout="fill"
+                alt="Campground Image"
+                src={t.imageUrl}
+              />
+            )}
+          </div>
           <div className="flex flex-1 flex-col divide-y divide-gray-100 p-8">
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Title</dt>
               <dd className="flex items-start gap-x-2">
-                <div className="mt-2 text-gray-500">{t.title}</div>
+                <div className="break-words text-gray-500">{t.title}</div>
               </dd>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Location</dt>
               <dd className="flex items-start gap-x-2">
-                <div className="mt-2 text-gray-500">{t.location}</div>
+                <div className="break-words text-gray-500">
+                  {t.location}
+                </div>
               </dd>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Price a Day</dt>
               <dd className="flex items-start gap-x-2">
-                <div className="ftext-gray-500 mt-2">{t.price}</div>
+                <div className="text-gray-500 break-words">{t.price}</div>
               </dd>
             </div>
             <div className="gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Description</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="mt-2 text-gray-500">{t.description}</div>
-              </dd>
+              <div className="mt-2 break-words text-gray-500">
+                {t.description}
+              </div>
             </div>
           </div>
           <div>
