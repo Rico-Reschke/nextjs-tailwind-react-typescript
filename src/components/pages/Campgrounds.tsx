@@ -1,25 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { CiViewList } from "react-icons/ci";
 
-const getCampgrounds = async () => {
-  try {
-    const res = await fetch("http://127.0.0.1:3000/api/campgrounds", {
-      cache: "no-store",
-    });
+export function Campgrounds() {
+  const [campgrounds, setCampgrounds] = useState([]);
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log("Error loading campgrounds: ", error);
-  }
-};
-
-export default async function Example() {
-  const { campgrounds } = await getCampgrounds();
+  useEffect(() => {
+    const fetchCampgrounds = async () => {
+      const res = await fetch("/api/campgrounds");
+      const camps = await res.json();
+      setCampgrounds(camps.campgrounds);
+    };
+    fetchCampgrounds();
+  }, []);
 
   return (
     <ul
@@ -31,12 +27,11 @@ export default async function Example() {
           key={t._id}
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
         >
-          <div className="relative h-96 w-full">
+          <div className="relative h-64 w-64">
             {t.imageUrl && (
               <Image
-                className="w-300 h-300"
-                objectFit="cover"
-                layout="fill"
+                sizes="2x"
+                fill
                 alt="Campground Image"
                 src={t.imageUrl}
               />
@@ -52,15 +47,13 @@ export default async function Example() {
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Location</dt>
               <dd className="flex items-start gap-x-2">
-                <div className="break-words text-gray-500">
-                  {t.location}
-                </div>
+                <div className="break-words text-gray-500">{t.location}</div>
               </dd>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="font-bold text-gray-900">Price a Day</dt>
               <dd className="flex items-start gap-x-2">
-                <div className="text-gray-500 break-words">{t.price}</div>
+                <div className="break-words text-gray-500">{t.price}</div>
               </dd>
             </div>
             <div className="gap-x-4 py-3">

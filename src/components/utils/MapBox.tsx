@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useEffect } from "react";
 
-export default function MapBox() {
+export function MapBox() {
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as any;
     const map = new mapboxgl.Map({
@@ -22,7 +22,10 @@ export default function MapBox() {
 
   return (
     <div className="flex items-center justify-center">
-      <div id="map" style={{ width: "80%", height: "28em", marginTop: "20px" }} />
+      <div
+        id="map"
+        style={{ width: "80%", height: "28em", marginTop: "20px" }}
+      />
     </div>
   );
 }

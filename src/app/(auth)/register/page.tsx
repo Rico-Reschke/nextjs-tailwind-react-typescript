@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/router";
+
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 interface RegisterPageProps {}
@@ -10,7 +11,6 @@ export default function RegisterPage({}: RegisterPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
