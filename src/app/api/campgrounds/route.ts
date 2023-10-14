@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { v2 as cloudinary } from 'cloudinary';
 import { writeFileSync } from 'fs';
 import { NextResponse } from 'next/server';
@@ -5,6 +6,13 @@ import { NextResponse } from 'next/server';
 import { uploadImage } from '@/libs/cloudinary';
 import connectMongoDB from '@/libs/mongodb';
 import Campground from '@/models/Campground';
+=======
+import { uploadImage } from "@/libs/cloudinary";
+import connectMongoDB from "@/libs/mongodb";
+import Campground from "@/models/Campground";
+import { v2 as cloudinary } from "cloudinary";
+import { NextResponse } from "next/server";
+>>>>>>> master
 
 cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
@@ -16,18 +24,21 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
-    const file = data.file as File;
-    writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-
-    const uploaded = await uploadImage(file);
-
+    const uploaded = await uploadImage(data.file as File);
+    //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
     console.log(uploaded?.url);
 
-    // const { title, location, price, description, imageUrl } = await request.json();
-
     await connectMongoDB();
-    // await Campground.create({ title, location, price, description, imageUrl });
+    const res = await Campground.create({
+      title: data.title,
+      location: data.location,
+      price: data.price,
+      description: data.description,
+      imageUrl: uploaded?.url,
+    });
+
+    console.log(res);
+
     return NextResponse.json(
       { message: "Campground created successfully" },
       { status: 201 },
