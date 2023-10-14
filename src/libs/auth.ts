@@ -1,9 +1,10 @@
-import connectMongoDB from "@/libs/mongodb";
-import User from "@/models/User";
-import bcrypt from "bcrypt";
-import { log } from "console";
-import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcrypt';
+import { log } from 'console';
+import { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+
+import connectMongoDB from '@/libs/mongodb';
+import User from '@/models/User';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,

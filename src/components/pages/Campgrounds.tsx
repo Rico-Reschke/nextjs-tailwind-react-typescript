@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import { CiViewList } from "react-icons/ci";
+import Image from 'next/image';
+import Link from 'next/link';
+import { CiViewList } from 'react-icons/ci';
 
 const getCampgrounds = async () => {
   try {
@@ -19,7 +19,7 @@ const getCampgrounds = async () => {
 };
 
 export default async function Example() {
-    const { campgrounds } = await getCampgrounds();
+  const { campgrounds } = await getCampgrounds();
 
   return (
     <ul
