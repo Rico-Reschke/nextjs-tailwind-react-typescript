@@ -72,7 +72,7 @@ const Navbar = () => {
     <Disclosure as="nav" className="duration-100 dark:bg-gray-800">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center lgcustom:hidden">

@@ -1,17 +1,23 @@
-import "@/styles/globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { SessionProvider } from "@/components/Provider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth";
-import Navbar from "@/components/container/Navbar";
+import '@/styles/globals.css';
 
+import { getServerSession } from 'next-auth';
+import { Inter } from 'next/font/google';
+
+import Navbar from '@/components/container/Navbar';
+import { SessionProvider } from '@/components/Provider';
+import { authOptions } from '@/libs/auth';
+
+import type { Metadata } from "next";
+import Head from 'next/head';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "YelpCamp",
   description: "YelpCamp by Crackstein",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1"
 };
+
+
 
 export default async function RootLayout({
   children,
@@ -22,6 +28,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <SessionProvider session={session}>
+        <Head>
+        </Head>
         <body className={inter.className}>
           <Navbar />
           {children}

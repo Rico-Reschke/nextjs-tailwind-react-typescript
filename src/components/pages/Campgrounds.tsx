@@ -1,15 +1,14 @@
 "use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { CiViewList } from 'react-icons/ci';
-import { Modal } from '../utils/Modal'
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Modal } from "../utils/Modal";
+import Link from "next/link";
 
 export function Campgrounds() {
   const [campgrounds, setCampgrounds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalDescription, setModalDescription] = useState('');
+  const [modalDescription, setModalDescription] = useState("");
 
   useEffect(() => {
     const fetchCampgrounds = async () => {
@@ -23,105 +22,73 @@ export function Campgrounds() {
   return (
     <ul
       role="list"
-      className="mx-5 mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+      className="mx-6 mb-10 mt-7 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
     >
       {campgrounds.map((t: any) => (
         <li
           key={t._id}
-          className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow"
+          className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow transition-shadow duration-200 hover:shadow-2xl hover:scale-105"
         >
-          <div className="relative h-72 w-full">
-            {t.imageUrl && (
-              <Image
-                sizes="2x"
-                fill
-                alt="Campground Image"
-                src={t.imageUrl}
-              />
-            )}
-          </div>
-          <div className="flex flex-1 flex-col divide-y divide-gray-100 p-3">
-            <div className="flex justify-between gap-x-4 py-3">
-              <dt className="font-bold text-gray-900">Title</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="break-all text-gray-500">{t.title}</div>
-              </dd>
+          <Link href={`/campgrounds/${t._id}`} key={t._id}>
+            <div className="relative h-56 sm:h-56 lg:h-64 xl:h-72 2xl:h-72">
+              {t.imageUrl && (
+                <Image
+                  className="rounded-t-lg"
+                  sizes="2x"
+                  fill
+                  alt="Campground Image"
+                  src={t.imageUrl}
+                />
+              )}
             </div>
-            <div className="flex justify-between gap-x-4 py-3">
-              <dt className="font-bold text-gray-900">Location</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="break-all text-gray-500">{t.location}</div>
-              </dd>
-            </div>
-            <div className="flex justify-between gap-x-4 py-3">
-              <dt className="font-bold text-gray-900">Price a Day</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="break-words text-gray-500">{t.price}</div>
-              </dd>
-            </div>
-            <div className="gap-x-4 py-2">
-              <dt className="font-bold text-gray-900">Description</dt>
-              <span className={`mt-2 break-words text-gray-500 line-clamp-2 flex-grow`}>
-                {t.description}
-              </span>
-              <button
-              onClick={() => {
-                setModalDescription(t.description);
-                setIsModalOpen(true);
-              }}
-              className={`text-blue-500 hover:text-blue-700 mt-2 ${t.description.length < 100 ? 'hidden' : ''}`}
-              >
-                Show Description
-              </button>
-            </div>
-          </div>
-          <div>
-            <div className="flex divide-x divide-gray-200">
-              <div className="flex w-0 flex-1">
-                <Link
-                  href={""}
-                  className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                >
-                  <CiViewList
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  View
-                </Link>
+            <div className="flex flex-1 flex-col divide-y divide-gray-100 p-3">
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="font-bold text-gray-900">Title</dt>
+                <dd className="flex items-start gap-x-2">
+                  <div className="break-all text-gray-500">{t.title}</div>
+                </dd>
               </div>
-              <div className="flex w-0 flex-1">
-                <Link
-                  href={""}
-                  className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                >
-                  <CiViewList
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  Edit
-                </Link>
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="font-bold text-gray-900">Location</dt>
+                <dd className="flex items-start gap-x-2">
+                  <div className="break-all text-gray-500">{t.location}</div>
+                </dd>
               </div>
-              <div className="flex w-0 flex-1">
-                <Link
-                  href={""}
-                  className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="font-bold text-gray-900">Price a Day</dt>
+                <dd className="flex items-start gap-x-2">
+                  <div className="break-words text-gray-500">{t.price}</div>
+                </dd>
+              </div>
+              <div className="gap-x-4 py-2">
+                <dt className="font-bold text-gray-900">Description</dt>
+                <span
+                  className={`mt-2 line-clamp-2 flex-grow break-words text-gray-500`}
                 >
-                  <CiViewList
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  Delete
-                </Link>
+                  {t.description}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setModalDescription(t.description);
+                    setIsModalOpen(true);
+                  }}
+                  className={`mt-2 text-blue-500 hover:text-blue-700 hover:text-lg ${
+                    t.description.length < 100 ? "hidden" : ""
+                  }`}
+                >
+                  Show Description
+                </button>
               </div>
             </div>
-          </div>
+          </Link>
         </li>
       ))}
       <Modal
         open={isModalOpen}
         setOpen={setIsModalOpen}
         description={modalDescription}
-        />
+      />
     </ul>
   );
 }
