@@ -1,16 +1,17 @@
 "use client";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { Fragment, useState } from "react";
-import { AiFillCloseSquare, AiOutlineMenu } from "react-icons/ai";
-import { BiDesktop, BiPlus } from "react-icons/bi";
-import { BsMoon, BsSun } from "react-icons/bs";
-import { FaSearch } from "react-icons/fa";
-import { MdAppRegistration } from "react-icons/md";
-import { RiLoginBoxLine } from "react-icons/ri";
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { Fragment, useState } from 'react';
+import { AiFillCloseSquare, AiOutlineMenu } from 'react-icons/ai';
+import { BiDesktop, BiPlus } from 'react-icons/bi';
+import { BsMoon, BsSun } from 'react-icons/bs';
+import { FaSearch } from 'react-icons/fa';
+import { MdAppRegistration } from 'react-icons/md';
+import { RiLoginBoxLine } from 'react-icons/ri';
+
+import { Disclosure, Menu, Transition } from '@headlessui/react';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");

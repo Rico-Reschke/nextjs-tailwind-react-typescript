@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "mapbox-gl": "^2.15.0",

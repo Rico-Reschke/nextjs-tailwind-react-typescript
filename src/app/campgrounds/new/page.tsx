@@ -16,19 +16,6 @@ const NewCampgroundForm = () => {
       formData.append("file", image);
       formData.append("upload_preset", "ricoshub");
 
-      // const uploadResponse = await fetch(
-      //   "https://api.cloudinary.com/v1_1/dcfnc8ajj/image/upload",
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   },
-      // );
-      // const uploadedImageData = await uploadResponse.json();
-      // const imageUrl = uploadedImageData.secure_url;
-
-      // formData.delete("file");
-      // formData.delete("upload_preset");
-
       const res = await fetch("/api/campgrounds", {
         method: "POST",
         body: formData,
