@@ -27,7 +27,7 @@ export function Campgrounds() {
       {campgrounds.map((t: any) => (
         <li
           key={t._id}
-          className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow transition-shadow duration-200 hover:shadow-2xl hover:scale-105"
+          className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow transition-shadow duration-200 hover:shadow-2xl"
         >
           <Link href={`/campgrounds/${t._id}`} key={t._id}>
             <div className="relative h-56 sm:h-56 lg:h-64 xl:h-72 2xl:h-72">
@@ -73,7 +73,7 @@ export function Campgrounds() {
                     setModalDescription(t.description);
                     setIsModalOpen(true);
                   }}
-                  className={`mt-2 text-blue-500 hover:text-blue-700 hover:text-lg ${
+                  className={`mt-2 text-blue-500 hover:text-lg hover:text-blue-700 ${
                     t.description.length < 100 ? "hidden" : ""
                   }`}
                 >

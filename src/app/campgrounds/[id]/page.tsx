@@ -1,9 +1,16 @@
-import React from 'react'
+import styles from "./page.module.css";
+import utils from "@/components/utils/utils.module.css";
+import ProductGallery from "@/components/utils/productGallery"
+import { product } from "../../../../public/data";
 
-const page = () => {
+const CampgroundsID = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main className={`${styles.main} ${utils.flex}`}>
+      <ProductGallery images={product.images} />
+      <div className={styles.productDetail}>
+      </div>
+    </main>
+  );
+};
 
-export default page
+export default CampgroundsID;

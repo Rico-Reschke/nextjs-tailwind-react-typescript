@@ -24,7 +24,15 @@ export function MapBox() {
     <div className="flex items-center justify-center">
       <div
         id="map"
-        style={{ width: "97.3%", height: "41em", marginTop: "15px", borderTopLeftRadius: "0.5rem", borderTopRightRadius: "0.5rem" }}
+        style={{
+          width: "97.3%",
+          height: "41em",
+          marginTop: "15px",
+          borderTopLeftRadius: "0.5rem",
+          borderTopRightRadius: "0.5rem",
+          borderBottomLeftRadius: "0.5rem",
+          borderBottomRightRadius: "0.5rem",
+        }}
       />
     </div>
   );

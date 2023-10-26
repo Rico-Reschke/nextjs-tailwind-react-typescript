@@ -18,7 +18,6 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [currentIcon, setCurrentIcon] = useState(
     <BiDesktop className="h-5 w-5 text-gray-400" aria-hidden="true" />,
   );
@@ -94,7 +93,7 @@ const Navbar = () => {
                 </div>
                 <div className="flex flex-shrink-0 items-center">
                   <Image
-                    className="hidden h-8 w-auto sm:block"
+                    className="hidden h-8 w-auto"
                     src="https://cdn4.iconfinder.com/data/icons/education-training/33/camping-512.png"
                     width={40}
                     height={40}

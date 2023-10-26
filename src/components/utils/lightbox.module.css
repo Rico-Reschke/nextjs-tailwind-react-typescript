@@ -1,0 +1,134 @@
+.lightbox {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: all 200ms ease-in-out;
+}
+
+@media (max-width: 880px) {
+  .lightbox {
+    display: none;
+  }
+}
+
+.lightboxActive {
+  visibility: visible;
+  opacity: 1;
+}
+
+.bgUnderlay {
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--clr-neutral-800) / 0.75);
+}
+
+.lightboxGallery {
+  max-width: 440px;
+  position: relative;
+}
+
+.lightboxClose {
+  position: absolute;
+  right: 0;
+  top: -40px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  fill: hsl(var(--clr-neutral-100));
+}
+
+.lightboxClose:hover {
+  fill: hsl(var(--clr-orange-400));
+}
+
+.lightboxGalleryCover {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.lightboxGalleryCover > img {
+  border-radius: 10px;
+}
+
+.lightboxThumbnails {
+  --flex-gap: 1.5rem;
+  list-style: none;
+  padding-inline: 2.5rem;
+}
+
+.lightboxThumbnail {
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.lightboxThumbnail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--clr-neutral-100));
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+}
+
+.lightboxThumbnail:hover::after {
+  opacity: 0.4;
+}
+
+.lightboxThumbnailActive {
+  outline: solid 2px hsl(var(--clr-orange-400));
+}
+
+.lightboxThumbnailActive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--clr-neutral-100));
+  opacity: 0.6;
+}
+
+.btnSliderPrev,
+.btnSliderNext {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+}
+
+.btnSliderPrev {
+  left: -20px;
+}
+
+.btnSliderNext {
+  right: -20px;
+}
+
+.btnSliderNext > svg {
+  width: 10px;
+  margin-left: 3px;
+  transition: all 200ms ease-in-out;
+}
+
+.btnSliderPrev > svg {
+  width: 10px;
+  margin-right: 3px;
+  transition: all 200ms ease-in-out;
+}
+
+.btnSliderPrev:hover > svg,
+.btnSliderNext:hover > svg {
+  opacity: 0.5;
+}

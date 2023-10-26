@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <div className="homepage-background">
-        <div className="container mx-auto flex h-screen flex-col justify-between">
+        <div className="mx-auto flex h-screen flex-col justify-between">
           <main className="flex h-screen flex-col items-center justify-center">
             <h1 className="py-5 text-2xl font-bold">YelpCamp</h1>
             <p className="font-bold">Welcome to YelpCamp</p>
