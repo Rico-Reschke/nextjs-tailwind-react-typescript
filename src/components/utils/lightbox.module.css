@@ -106,14 +106,15 @@
   top: 50%;
   bottom: 50%;
   transform: translateY(-50%);
+  background-color: white;
 }
 
 .btnSliderPrev {
-  left: -20px;
+  left: -45px;
 }
 
 .btnSliderNext {
-  right: -20px;
+  right: -45px;
 }
 
 .btnSliderNext > svg {

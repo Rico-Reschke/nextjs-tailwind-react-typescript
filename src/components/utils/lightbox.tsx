@@ -53,7 +53,6 @@ export default function Lightbox({
             fillRule="evenodd"
           />
         </svg>
-
         <div className={styles.lightboxGalleryCover}>
           <button className={`${styles.btnSliderPrev}`} onClick={goToPrevImg}>
             <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
