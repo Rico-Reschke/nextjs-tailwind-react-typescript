@@ -14,7 +14,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Campgrounds",
   description: "Campgrounds by Crackstein",
-  viewport: "width=device-width, initial-scale=1",
 };
 
 export default async function RootLayout({

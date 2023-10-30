@@ -1,32 +1,32 @@
-import styles from "./lightbox.module.css";
-import utils from "./utils.module.css";
+import styles from "../../styles/lightbox.module.css";
+import utils from "../../styles/utils.module.css";
 import Image from "next/image";
 
 interface LightboxProps {
-    showLightbox: boolean;
-    imgIndex: number;
-    images: any;
-    setImgIndex: React.Dispatch<React.SetStateAction<number>>;
-    onClose: () => void;
+  showLightbox: boolean;
+  imgIndex: number;
+  images: any;
+  setImgIndex: React.Dispatch<React.SetStateAction<number>>;
+  onClose: () => void;
 }
 
 export default function Lightbox({
-    showLightbox,
-    imgIndex,
-    images,
-    setImgIndex,
-    onClose,
+  showLightbox,
+  imgIndex,
+  images,
+  setImgIndex,
+  onClose,
 }: LightboxProps) {
-    // Handle slider buttons click
-    const goToPrevImg = () => {
-        setImgIndex((prevIndex: any) =>
-            prevIndex === 0 ? images.mainImgs.length - 1 : prevIndex - 1
-        );
-    };
+  // Handle slider buttons click
+  const goToPrevImg = () => {
+    setImgIndex((prevIndex: any) =>
+      prevIndex === 0 ? images.mainImgs.length - 1 : prevIndex - 1,
+    );
+  };
 
   const goToNextImg = () => {
     setImgIndex((prevIndex: any) =>
-      prevIndex === images.mainImgs.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images.mainImgs.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -77,10 +77,10 @@ export default function Lightbox({
             </svg>
           </button>
           <Image
-          width={440}
-          height={440} 
-          src={images.mainImgs[imgIndex].src} 
-          alt="Lightbox cover image" 
+            width={440}
+            height={440}
+            src={images.mainImgs[imgIndex].src}
+            alt="Lightbox cover image"
           />
         </div>
         <ul className={`${styles.lightboxThumbnails} ${utils.flex}`}>
@@ -94,11 +94,11 @@ export default function Lightbox({
               }
               onClick={() => setImgIndex(index)}
             >
-              <Image 
-              width={72}
-              height={72}
-              src={element.src} 
-              alt={`Lightbox thumbnail ${index}`} 
+              <Image
+                width={72}
+                height={72}
+                src={element.src}
+                alt={`Lightbox thumbnail ${index}`}
               />
             </li>
           ))}

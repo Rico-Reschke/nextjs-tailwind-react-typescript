@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const data = Object.fromEntries(formData.entries());
     const uploaded = await uploadImage(data.file as File);
     //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-    console.log(uploaded?.url);
+    console.log(data);
 
     await connectMongoDB();
     const res = await Campground.create({
