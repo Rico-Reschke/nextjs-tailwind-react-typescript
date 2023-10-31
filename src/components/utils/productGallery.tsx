@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/productGallery.module.css";
 import utils from "../../styles/utils.module.css";
 import Lightbox from "./lightbox";
@@ -13,35 +13,20 @@ type ImagesProps = {
 };
 
 export default function ProductGallery({ images }: { images: ImagesProps }) {
-  const [showLightbox, setShowLightbox] = useState(false);
-  const [imgIndex, setImgIndex] = useState(0);
-  const [campImages, setCampImages] = useState<string[]>([]);
+    const [showLightbox, setShowLightbox] = useState(false);
+    const [imgIndex, setImgIndex] = useState(0);
 
   const goToPrevSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === 0 ? images.sliderImgs.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? images.sliderImgs.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === images.sliderImgs.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === images.sliderImgs.length - 1 ? 0 : prevIndex + 1
     );
   };
-
-  useEffect(() => {
-    const fetchCampgrounds = async () => {
-      const pathname = window.location.pathname;
-      const id = pathname.split("/").pop();
-      console.log(id);
-      const res = await fetch(`/api/campgrounds/${id}`);
-      console.log(res)
-      const camps = await res.json();
-      console.log(camps.campground.imageUrl)
-      setCampImages([camps.campground.imageUrl]);
-    };
-    fetchCampgrounds();
-  }, []);
 
   return (
     <div className={styles.productGallery}>
@@ -50,10 +35,10 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
         onClick={() => setShowLightbox(true)}
       >
         <Image
-          width={440}
-          height={440}
-          src={campImages[imgIndex]}
-          alt="gallery-cover-image"
+        width={440}
+        height={440} 
+        src={images.mainImgs[imgIndex].src} 
+        alt="gallery-cover-image" 
         />
       </div>
       <ul className={`${styles.productThumbnails} ${utils.flex}`}>
@@ -68,10 +53,10 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
             onClick={() => setImgIndex(index)}
           >
             <Image
-              width={72}
-              height={72}
-              src={element.src}
-              alt={`product thumbnail ${index}`}
+            width={72}
+            height={72} 
+            src={element.src} 
+            alt={`product thumbnail ${index}`} 
             />
           </li>
         ))}
