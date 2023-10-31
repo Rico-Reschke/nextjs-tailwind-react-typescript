@@ -136,7 +136,6 @@ const NewCampgroundForm = () => {
                 <input
                   {...register("imageUrl")}
                   type="file"
-                  multiple
                   aria-describedby="file_input_help"
                   id="file_input"
                   accept="image/*"
