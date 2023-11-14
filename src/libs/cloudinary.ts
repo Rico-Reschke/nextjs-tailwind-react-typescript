@@ -1,10 +1,11 @@
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
+
 import { Readable } from "stream";
 
 export const uploadImage = (
-  file: File,
-): Promise<UploadApiResponse | undefined> =>
-  new Promise(async (resolve, reject) => {
+  file: any,
+): Promise<UploadApiResponse | undefined> => {
+  return new Promise(async (resolve, reject) => {
     const buffer = Buffer.from(await file.arrayBuffer());
     const readableStream = new Readable();
     readableStream.push(buffer);
@@ -17,3 +18,4 @@ export const uploadImage = (
 
     readableStream.pipe(uploadStream);
   });
+}

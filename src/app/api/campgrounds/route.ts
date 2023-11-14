@@ -14,17 +14,28 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
-    const uploaded = await uploadImage(data.file as File);
+    // Überprüfen, ob mehrere Dateien hochgeladen wurden
+    const files: File[] = formData.getAll('file') as File[];
+
+    // const uploaded = await uploadImage(data.file as File);
     //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-    console.log(data);
+    // console.log(data);
 
     await connectMongoDB();
+
+    const imageUrls = [];
+    for (const file of files) {
+      const uploaded = await uploadImage(file);
+      imageUrls.push(uploaded?.url);
+    }
+
     const res = await Campground.create({
       title: data.title,
       location: data.location,
       price: data.price,
       description: data.description,
-      imageUrl: uploaded?.url,
+      imageUrl: imageUrls,
+      // imageUrl: uploaded?.url,
     });
 
     console.log(res);
