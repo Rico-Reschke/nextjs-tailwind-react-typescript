@@ -7,15 +7,12 @@ const NewCampgroundForm = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const image = data.imageUrl[0];
-      console.log(image);
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("price", data.price);
       formData.append("description", data.description);
-      formData.append("file", image);
-      formData.append("upload_preset", "ricoshub");
+      formData.append("files", data.images);
 
       const res = await fetch("/api/campgrounds", {
         method: "POST",
@@ -135,7 +132,7 @@ const NewCampgroundForm = () => {
                   Image
                 </label>
                 <input
-                  {...register("imageUrl")}
+                  {...register("images")}
                   type="file"
                   aria-describedby="file_input_help"
                   id="file_input"

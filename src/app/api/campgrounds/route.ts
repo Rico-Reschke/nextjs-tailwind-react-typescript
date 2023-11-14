@@ -12,23 +12,24 @@ cloudinary.config({
 
 export async function POST(request: Request) {
   try {
+    await connectMongoDB();
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
-    const uploaded = await uploadImage(data.file as File);
-    //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-    console.log(data);
+    const files: File[] = data.files as unknown as File[];
 
-    await connectMongoDB();
+    const imageUrls: string[] = [];
+    for (const file of files) {
+      const uploaded = await uploadImage(file);
+      imageUrls.push(uploaded?.url as string);
+    }
+
     const res = await Campground.create({
       title: data.title,
       location: data.location,
       price: data.price,
       description: data.description,
-      imageUrl: uploaded?.url,
+      imageUrls,
     });
-
-    console.log(res);
-
     return NextResponse.json(
       { message: "Campground created successfully" },
       { status: 201 },
