@@ -6,26 +6,23 @@ const NewCampgroundForm = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
+    const files = Array.from(data.images as FileList);
+
     try {
-      const images = data.imageUrl;
-      console.log(images);
       const formData = new FormData();
       console.log(formData)
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("price", data.price);
       formData.append("description", data.description);
-      formData.append("upload_preset", "ricoshub");
-      for (let i = 0; i < images.length; i++) {
-        formData.append("file", images[i]);
-      }
-      console.log(formData);
+      files.forEach((file) => formData.append("files", file));
+
       const res = await fetch("/api/campgrounds", {
         method: "POST",
         body: formData,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -42,8 +39,6 @@ const NewCampgroundForm = () => {
         feedbackElement.classList.remove("text-green-500");
         feedbackElement.classList.add("text-red-500");
       }
-    } else {
-      console.warn("Feedback element not found");
     }
   };
 
@@ -138,10 +133,10 @@ const NewCampgroundForm = () => {
                   Image
                 </label>
                 <input
-                  {...register("imageUrl")}
+                  {...register("images")}
                   type="file"
-                  aria-describedby="file_input_help"
-                  id="file_input"
+                  // bypass wichtig für mehrere files
+                  multiple
                   accept="image/*"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                 />

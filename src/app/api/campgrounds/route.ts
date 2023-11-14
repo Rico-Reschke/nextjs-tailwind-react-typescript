@@ -2,7 +2,8 @@ import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
 import { v2 as cloudinary } from "cloudinary";
-import { NextResponse } from "next/server";
+import { log } from "console";
+import { NextRequest, NextResponse } from "next/server";
 
 cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
@@ -10,55 +11,34 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 });
 
-export const uploadImages = async (files: File[]): Promise<string[]> => {
-  const urls: string[] = [];
-  for (const file of files) {
-    const uploaded = await uploadImage(file);
-    if (uploaded?.url) {
-      urls.push(uploaded.url);
-    }
-  }
-  return urls;
-};
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData.entries());
-    const files = formData.getAll('images') as File[];
-    const uploadedUrls = await uploadImages(files);
-    //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-    console.log(uploadedUrls);
-
     await connectMongoDB();
+    const formData = await request.formData();
+    const files = formData.getAll("files") as unknown as File[];
+    const data = Object.fromEntries(formData.entries());
 
-    const imageUrls = [];
-    for (const file of files) {
+    const imageUrls: string[] = [];
+    for (const file of Array.from(files)) {
+      log(file);
       const uploaded = await uploadImage(file);
-      imageUrls.push(uploaded?.url);
+      imageUrls.push(uploaded?.url as string);
     }
 
-    const res = await Campground.create({
+    log("finished upload");
+
+    const campground = await Campground.create({
       title: data.title,
       location: data.location,
       price: data.price,
       description: data.description,
-      imageUrl: imageUrls,
-      // imageUrl: uploaded?.url,
+      imageUrls,
     });
-
-    console.log(res);
-
-    return NextResponse.json(
-      { message: "Campground created successfully" },
-      { status: 201 },
-    );
+    return NextResponse.json(campground, { status: 201 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json(JSON.parse(JSON.stringify(error)), {
+      status: 500,
+    });
   }
 }
 
@@ -66,11 +46,4 @@ export async function GET() {
   await connectMongoDB();
   const campgrounds = await Campground.find();
   return NextResponse.json({ campgrounds });
-}
-
-export async function DELETE(request: any) {
-  const id = request.nextUrl.searchParams.get("id");
-  await connectMongoDB();
-  await Campground.findByIdAndDelete(id);
-  return NextResponse.json({ message: "Campground deleted" }, { status: 200 });
 }

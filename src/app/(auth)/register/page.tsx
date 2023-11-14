@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -32,7 +31,7 @@ export default function RegisterPage({}: RegisterPageProps) {
 
       // Überprüfen Sie den Status der Antwort
       if (resUserExists.ok) {
-        const { user } = await resUserExists.json();
+        const user = await resUserExists.json();
 
         if (user) {
           setError("User already exists.");
