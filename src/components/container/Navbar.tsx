@@ -10,7 +10,6 @@ import { BsMoon, BsSun } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
 import { MdAppRegistration } from 'react-icons/md';
 import { RiLoginBoxLine } from 'react-icons/ri';
-
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 
 function classNames(...classes: string[]) {

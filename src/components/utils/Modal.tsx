@@ -1,8 +1,6 @@
-import { Transition, Dialog } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
-import {
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
+import { AiFillCloseSquare } from "react-icons/ai";
 
 interface ModalProps {
   open: boolean;
@@ -10,11 +8,7 @@ interface ModalProps {
   description: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  open,
-  setOpen,
-  description,
-}) => {
+export const Modal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -49,19 +43,19 @@ export const Modal: React.FC<ModalProps> = ({
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    <AiFillCloseSquare className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <Dialog.Description
                       as="h3"
-                      className="flex justify-center items-center text-base font-semibold leading-6 text-gray-900"
+                      className="flex items-center justify-center text-base font-semibold leading-6 text-gray-900"
                     >
                       Description
                     </Dialog.Description>
                     <div className="mt-4">
-                      <p className="text-sm text-gray-500 break-all">
+                      <p className="break-all text-sm text-gray-500">
                         {description}
                       </p>
                     </div>
