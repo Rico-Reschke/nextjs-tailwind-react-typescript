@@ -29,7 +29,7 @@ export function Campgrounds() {
           key={t._id}
           className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow transition-shadow duration-200 hover:shadow-2xl"
         >
-          <Link href={`/campgrounds/${t._id}`} key={t._id}>
+          <Link href={`/campgrounds/${t._id}`}>
             <div className="relative h-56 sm:h-56 lg:h-64 xl:h-72 2xl:h-72">
               {t?.imageUrls?.map((imageUrl: string) => (
                 <Image
