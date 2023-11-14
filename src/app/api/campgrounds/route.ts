@@ -10,16 +10,25 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 });
 
+export const uploadImages = async (files: File[]): Promise<string[]> => {
+  const urls: string[] = [];
+  for (const file of files) {
+    const uploaded = await uploadImage(file);
+    if (uploaded?.url) {
+      urls.push(uploaded.url);
+    }
+  }
+  return urls;
+};
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
-    // Überprüfen, ob mehrere Dateien hochgeladen wurden
-    const files: File[] = formData.getAll('file') as File[];
-
-    // const uploaded = await uploadImage(data.file as File);
+    const files = formData.getAll('images') as File[];
+    const uploadedUrls = await uploadImages(files);
     //  writeFileSync(file.name, Buffer.from(await file.arrayBuffer()));
-    // console.log(data);
+    console.log(uploadedUrls);
 
     await connectMongoDB();
 
