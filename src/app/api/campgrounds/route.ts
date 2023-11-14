@@ -3,7 +3,7 @@ import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
 import { v2 as cloudinary } from "cloudinary";
 import { log } from "console";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
@@ -11,7 +11,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     await connectMongoDB();
     const formData = await request.formData();
@@ -48,7 +48,7 @@ export async function GET() {
   return NextResponse.json({ campgrounds });
 }
 
-export async function DELETE(request: any) {
+export async function DELETE(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id");
   await connectMongoDB();
   await Campground.findByIdAndDelete(id);
