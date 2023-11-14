@@ -6,13 +6,15 @@ const NewCampgroundForm = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
+    const files = Array.from(data.images as FileList);
+
     try {
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("price", data.price);
       formData.append("description", data.description);
-      formData.append("files", data.images);
+      files.forEach((file) => formData.append("files", file));
 
       const res = await fetch("/api/campgrounds", {
         method: "POST",

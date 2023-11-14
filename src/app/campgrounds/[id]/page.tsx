@@ -1,8 +1,7 @@
-import styles from "../../../styles/page.module.css";
-import utils from "@/styles/utils.module.css";
 import ProductGallery from "@/components/utils/productGallery";
+import utils from "@/styles/utils.module.css";
 import { product } from "../../../../public/data";
-import { GetServerSideProps } from "next";
+import styles from "../../../styles/page.module.css";
 
 type CampgroundViewPageProps = {
   campground: {
@@ -17,5 +16,4 @@ export default function CampgroundViewPage({ campground }: any) {
       <div className={styles.productDetail}></div>
     </main>
   );
-};
-
+}

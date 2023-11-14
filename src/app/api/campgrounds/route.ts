@@ -14,11 +14,12 @@ export async function POST(request: Request) {
   try {
     await connectMongoDB();
     const formData = await request.formData();
+    const files = formData.getAll("files") as unknown as File[];
     const data = Object.fromEntries(formData.entries());
-    const files: File[] = data.files as unknown as File[];
 
     const imageUrls: string[] = [];
-    for (const file of files) {
+    for (const file of Array.from(files)) {
+      console.log(file);
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);
     }

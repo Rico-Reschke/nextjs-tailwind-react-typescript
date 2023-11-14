@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Modal } from "../utils/Modal";
-import Link from "next/link";
 
 export function Campgrounds() {
   const [campgrounds, setCampgrounds] = useState([]);
@@ -31,15 +31,16 @@ export function Campgrounds() {
         >
           <Link href={`/campgrounds/${t._id}`} key={t._id}>
             <div className="relative h-56 sm:h-56 lg:h-64 xl:h-72 2xl:h-72">
-              {t.imageUrl && (
+              {t.imageUrls.map((imageUrl: string) => (
                 <Image
+                  key={imageUrl}
                   className="rounded-t-lg"
                   sizes="2x"
                   fill
                   alt="Campground Image"
-                  src={t.imageUrl}
+                  src={imageUrl}
                 />
-              )}
+              ))}
             </div>
             <div className="flex flex-1 flex-col divide-y divide-gray-100 p-3">
               <div className="flex justify-between gap-x-4 py-3">
