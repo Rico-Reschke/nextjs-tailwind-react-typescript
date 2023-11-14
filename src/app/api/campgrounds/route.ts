@@ -2,6 +2,7 @@ import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
 import { v2 as cloudinary } from "cloudinary";
+import { log } from "console";
 import { NextResponse } from "next/server";
 
 cloudinary.config({
@@ -19,28 +20,25 @@ export async function POST(request: Request) {
 
     const imageUrls: string[] = [];
     for (const file of Array.from(files)) {
-      console.log(file);
+      log(file);
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);
     }
 
-    const res = await Campground.create({
+    log("finished upload");
+
+    const campground = await Campground.create({
       title: data.title,
       location: data.location,
       price: data.price,
       description: data.description,
       imageUrls,
     });
-    return NextResponse.json(
-      { message: "Campground created successfully" },
-      { status: 201 },
-    );
+    return NextResponse.json(campground, { status: 201 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json(JSON.parse(JSON.stringify(error)), {
+      status: 500,
+    });
   }
 }
 

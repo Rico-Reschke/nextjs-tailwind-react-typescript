@@ -4,8 +4,8 @@ import { Readable } from "stream";
 
 export const uploadImage = (
   file: any,
-): Promise<UploadApiResponse | undefined> => {
-  return new Promise(async (resolve, reject) => {
+): Promise<UploadApiResponse | undefined> =>
+  new Promise(async (resolve, reject) => {
     const buffer = Buffer.from(await file.arrayBuffer());
     const readableStream = new Readable();
     readableStream.push(buffer);
@@ -18,4 +18,3 @@ export const uploadImage = (
 
     readableStream.pipe(uploadStream);
   });
-}

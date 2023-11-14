@@ -21,7 +21,7 @@ const NewCampgroundForm = () => {
         body: formData,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
