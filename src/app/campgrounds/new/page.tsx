@@ -8,6 +8,7 @@ const NewCampgroundForm = () => {
   const onSubmit = async (data: any) => {
     try {
       const image = data.imageUrl[0];
+      console.log(image);
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("location", data.location);
@@ -138,6 +139,7 @@ const NewCampgroundForm = () => {
                   type="file"
                   aria-describedby="file_input_help"
                   id="file_input"
+                  multiple
                   accept="image/*"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                 />
