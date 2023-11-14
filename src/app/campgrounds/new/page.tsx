@@ -134,8 +134,7 @@ const NewCampgroundForm = () => {
                 <input
                   {...register("images")}
                   type="file"
-                  aria-describedby="file_input_help"
-                  id="file_input"
+                  // bypass wichtig für mehrere files
                   multiple
                   accept="image/*"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
