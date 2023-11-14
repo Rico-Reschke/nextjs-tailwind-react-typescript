@@ -31,7 +31,7 @@ export function Campgrounds() {
         >
           <Link href={`/campgrounds/${t._id}`} key={t._id}>
             <div className="relative h-56 sm:h-56 lg:h-64 xl:h-72 2xl:h-72">
-              {t.imageUrls.map((imageUrl: string) => (
+              {t?.imageUrls?.map((imageUrl: string) => (
                 <Image
                   key={imageUrl}
                   className="rounded-t-lg"
