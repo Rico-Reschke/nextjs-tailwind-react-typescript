@@ -47,10 +47,3 @@ export async function GET() {
   const campgrounds = await Campground.find();
   return NextResponse.json({ campgrounds });
 }
-
-export async function DELETE(request: NextRequest) {
-  const id = request.nextUrl.searchParams.get("id");
-  await connectMongoDB();
-  await Campground.findByIdAndDelete(id);
-  return NextResponse.json({ message: "Campground deleted" }, { status: 200 });
-}
