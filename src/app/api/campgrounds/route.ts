@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const data = Object.fromEntries(formData.entries());
 
     const imageUrls: string[] = [];
-    for (const file of Array.from(files)) {
+    for (const file of files) {
       log(file);
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);

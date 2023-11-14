@@ -9,7 +9,6 @@ export async function GET(
   await connectMongoDB();
 
   const campground = await Campground.findById(params.id);
-  // await Campground.findByIdAndDelete(id);
   return NextResponse.json(campground, { status: 200 });
 }
 
