@@ -38,8 +38,6 @@ const NewCampgroundForm = () => {
         feedbackElement.classList.remove("text-green-500");
         feedbackElement.classList.add("text-red-500");
       }
-    } else {
-      console.warn("Feedback element not found");
     }
   };
 
