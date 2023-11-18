@@ -12,27 +12,36 @@ type CampgroundViewPageProps = {
   };
 };
 
+type Campground = {
+  imageUrls: string[];
+};
+
 export default function CampgroundViewPage({
   params,
 }: CampgroundViewPageProps) {
   const router = useRouter();
-  const [campground, setCampground] = useState();
+  const [campground, setCampground] = useState<Campground | null>(null);
 
   useEffect(() => {
     const fetchCampground = async () => {
       const res = await fetch(`/api/campgrounds/${params.id}`);
       const campground = await res.json();
-      if (!campground) router.push("/campgrounds");
+      if (!campground) {
+        router.push("/campgrounds");
+      } else {
       setCampground(campground);
+      }
     };
     fetchCampground();
-  }, []);
+  }, [params.id]);
 
-  console.log(campground);
+  if (campground) {
+    console.log(campground.imageUrls[0]);
+  }
 
   return (
     <main className={`${styles.main} ${utils.flex}`}>
-      <ProductGallery images={product.images} />
+      {campground && <ProductGallery imageUrls={campground.imageUrls} />}
       <div className={styles.productDetail}></div>
     </main>
   );

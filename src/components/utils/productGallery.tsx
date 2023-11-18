@@ -1,30 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/productGallery.module.css";
 import utils from "../../styles/utils.module.css";
 import Lightbox from "./lightbox";
 import Image from "next/image";
 
-type ImagesProps = {
-  mainImgs: { src: string }[];
-  thumbnails: { src: string }[];
-  sliderImgs: { id: string; img: any }[];
-};
+type ProductGalleryProps = {
+  imageUrls: string[];
+}
 
-export default function ProductGallery({ images }: { images: ImagesProps }) {
+export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
     const [showLightbox, setShowLightbox] = useState(false);
     const [imgIndex, setImgIndex] = useState(0);
 
   const goToPrevSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === 0 ? images.sliderImgs.length - 1 : prevIndex - 1
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === images.sliderImgs.length - 1 ? 0 : prevIndex + 1
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -37,12 +35,12 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
         <Image
         width={440}
         height={440} 
-        src={images.mainImgs[imgIndex].src} 
+        src={imageUrls[imgIndex]} 
         alt="gallery-cover-image" 
         />
       </div>
       <ul className={`${styles.productThumbnails} ${utils.flex}`}>
-        {images.thumbnails.map((element: any, index: any) => (
+        {imageUrls.map((url: any, index: any) => (
           <li
             key={index}
             className={
@@ -55,7 +53,7 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
             <Image
             width={72}
             height={72} 
-            src={element.src} 
+            src={url} 
             alt={`product thumbnail ${index}`} 
             />
           </li>
@@ -65,7 +63,7 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
       <Lightbox
         showLightbox={showLightbox}
         imgIndex={imgIndex}
-        images={images}
+        imageUrls={imageUrls}
         setImgIndex={setImgIndex}
         onClose={() => setShowLightbox(false)}
       />
@@ -74,12 +72,12 @@ export default function ProductGallery({ images }: { images: ImagesProps }) {
         className={styles.productGallerySlider}
         style={{ transform: `translateX(-${imgIndex * 100}%)` }}
       >
-        {images.sliderImgs.map((element: any, index: any) => (
+        {imageUrls.map((url: any, index: any) => (
           <Image
             width={72}
             height={72}
-            key={element.id}
-            src={element.img.src}
+            key={url.id}
+            src={url}
             alt={`Product Image ${index}`}
           />
         ))}

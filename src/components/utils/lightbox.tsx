@@ -5,7 +5,7 @@ import Image from "next/image";
 interface LightboxProps {
   showLightbox: boolean;
   imgIndex: number;
-  images: any;
+  imageUrls: string[];
   setImgIndex: React.Dispatch<React.SetStateAction<number>>;
   onClose: () => void;
 }
@@ -13,20 +13,20 @@ interface LightboxProps {
 export default function Lightbox({
   showLightbox,
   imgIndex,
-  images,
+  imageUrls,
   setImgIndex,
   onClose,
 }: LightboxProps) {
   // Handle slider buttons click
   const goToPrevImg = () => {
     setImgIndex((prevIndex: any) =>
-      prevIndex === 0 ? images.mainImgs.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
     );
   };
 
   const goToNextImg = () => {
     setImgIndex((prevIndex: any) =>
-      prevIndex === images.mainImgs.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -79,12 +79,12 @@ export default function Lightbox({
           <Image
             width={440}
             height={440}
-            src={images.mainImgs[imgIndex].src}
+            src={imageUrls[imgIndex]}
             alt="Lightbox cover image"
           />
         </div>
         <ul className={`${styles.lightboxThumbnails} ${utils.flex}`}>
-          {images.thumbnails.map((element: any, index: any) => (
+          {imageUrls.map((url: any, index: any) => (
             <li
               key={index}
               className={
@@ -97,7 +97,7 @@ export default function Lightbox({
               <Image
                 width={72}
                 height={72}
-                src={element.src}
+                src={url}
                 alt={`Lightbox thumbnail ${index}`}
               />
             </li>
