@@ -8,21 +8,26 @@ import Image from "next/image";
 
 type ProductGalleryProps = {
   imageUrls: string[];
-}
+};
+
+const defaultImageUrl = "/images/default-image.jpg";
 
 export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
-    const [showLightbox, setShowLightbox] = useState(false);
-    const [imgIndex, setImgIndex] = useState(0);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [imgIndex, setImgIndex] = useState(0);
+
+  const displayImages =
+    imageUrls && imageUrls.length > 0 ? imageUrls : [defaultImageUrl];
 
   const goToPrevSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
     );
   };
 
   const goToNextSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -33,10 +38,10 @@ export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
         onClick={() => setShowLightbox(true)}
       >
         <Image
-        width={440}
-        height={440} 
-        src={imageUrls[imgIndex]} 
-        alt="gallery-cover-image" 
+          width={440}
+          height={440}
+          src={displayImages[imgIndex]}
+          alt="gallery-cover-image"
         />
       </div>
       <ul className={`${styles.productThumbnails} ${utils.flex}`}>
@@ -51,10 +56,10 @@ export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
             onClick={() => setImgIndex(index)}
           >
             <Image
-            width={72}
-            height={72} 
-            src={url} 
-            alt={`product thumbnail ${index}`} 
+              width={72}
+              height={72}
+              src={url}
+              alt={`product thumbnail ${index}`}
             />
           </li>
         ))}

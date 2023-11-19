@@ -10,6 +10,8 @@ interface LightboxProps {
   onClose: () => void;
 }
 
+const defaultImageUrl = "/images/default-image.jpg";
+
 export default function Lightbox({
   showLightbox,
   imgIndex,
@@ -17,17 +19,30 @@ export default function Lightbox({
   setImgIndex,
   onClose,
 }: LightboxProps) {
-  // Handle slider buttons click
+  const displayImages = imageUrls.length > 0 ? imageUrls : [defaultImageUrl];
+
+  console.log("imageUrls:", imageUrls);
+
+  const isOnlyDefaultImage =
+    imageUrls.length === 0 ||
+    (imageUrls.length === 1 && imageUrls[0] === defaultImageUrl);
+
+  console.log("isOnlyDefaultImage:", isOnlyDefaultImage);
+
   const goToPrevImg = () => {
-    setImgIndex((prevIndex: any) =>
-      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
-    );
+    if (!isOnlyDefaultImage) {
+      setImgIndex((prevIndex: any) =>
+        prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
+      );
+    }
   };
 
   const goToNextImg = () => {
-    setImgIndex((prevIndex: any) =>
-      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
-    );
+    if (!isOnlyDefaultImage) {
+      setImgIndex((prevIndex: any) =>
+        prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
+      );
+    }
   };
 
   return (
@@ -54,32 +69,36 @@ export default function Lightbox({
           />
         </svg>
         <div className={styles.lightboxGalleryCover}>
-          <button className={`${styles.btnSliderPrev}`} onClick={goToPrevImg}>
-            <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11 1 3 9l8 8"
-                stroke="#1D2026"
-                strokeWidth="3"
-                fill="none"
-                fillRule="evenodd"
-              />
-            </svg>
-          </button>
-          <button className={`${styles.btnSliderNext}`} onClick={goToNextImg}>
-            <svg viewBox="0 0 13 18" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="m2 1 8 8-8 8"
-                stroke="#1D2026"
-                strokeWidth="3"
-                fill="none"
-                fillRule="evenodd"
-              />
-            </svg>
-          </button>
+          {!isOnlyDefaultImage && (
+            <button className={`${styles.btnSliderPrev}`} onClick={goToPrevImg}>
+              <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11 1 3 9l8 8"
+                  stroke="#1D2026"
+                  strokeWidth="3"
+                  fill="none"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </button>
+          )}
+          {!isOnlyDefaultImage && (
+            <button className={`${styles.btnSliderNext}`} onClick={goToNextImg}>
+              <svg viewBox="0 0 13 18" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m2 1 8 8-8 8"
+                  stroke="#1D2026"
+                  strokeWidth="3"
+                  fill="none"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </button>
+          )}
           <Image
             width={440}
             height={440}
-            src={imageUrls[imgIndex]}
+            src={displayImages[imgIndex]}
             alt="Lightbox cover image"
           />
         </div>
