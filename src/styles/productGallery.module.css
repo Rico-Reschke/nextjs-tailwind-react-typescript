@@ -60,13 +60,19 @@
   }
   
   @media (max-width: 1050px) {
+    .productDetail {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 1050px) {
     .productGallery {
       padding-inline: 20px;
       min-width: auto;
     }
   }
   
-  @media (max-width: 880px) {
+  @media (max-width: 50) {
     .productGallery {
       padding: 0;
       overflow: hidden;

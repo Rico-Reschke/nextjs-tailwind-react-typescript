@@ -7,14 +7,28 @@ import Lightbox from "./lightbox";
 import Image from "next/image";
 
 type ProductGalleryProps = {
+  _id: string;
+  title: string;
+  location: string;
+  price: string;
+  description: string;
   imageUrls: string[];
 };
 
 const defaultImageUrl = "/images/default-image.jpg";
 
-export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
+export default function ProductGallery({
+  _id,
+  title,
+  location,
+  price,
+  description,
+  imageUrls,
+}: ProductGalleryProps) {
   const [showLightbox, setShowLightbox] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
+
+  console.log(_id, title, location, price, description, imageUrls);
 
   const displayImages =
     imageUrls && imageUrls.length > 0 ? imageUrls : [defaultImageUrl];
@@ -64,7 +78,6 @@ export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
           </li>
         ))}
       </ul>
-
       <Lightbox
         showLightbox={showLightbox}
         imgIndex={imgIndex}
@@ -72,7 +85,6 @@ export default function ProductGallery({ imageUrls }: ProductGalleryProps) {
         setImgIndex={setImgIndex}
         onClose={() => setShowLightbox(false)}
       />
-
       <div
         className={styles.productGallerySlider}
         style={{ transform: `translateX(-${imgIndex * 100}%)` }}
