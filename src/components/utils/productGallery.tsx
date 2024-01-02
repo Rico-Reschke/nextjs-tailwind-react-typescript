@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/productGallery.module.css";
 import utils from "../../styles/utils.module.css";
 import Lightbox from "./lightbox";
