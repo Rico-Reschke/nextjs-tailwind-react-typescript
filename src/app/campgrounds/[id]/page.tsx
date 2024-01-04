@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import styles from "../../../styles/page.module.css";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import { ReviewModal } from "../../../components/utils/ReviewModal";
 
 const reviews = {
   average: 4,
@@ -56,6 +57,8 @@ export default function CampgroundViewPage({
 }: CampgroundViewPageProps) {
   const router = useRouter();
   const [campground, setCampground] = useState<Campground | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalReview, setModalReview] = useState("");
 
   useEffect(() => {
     const fetchCampground = async () => {
@@ -200,14 +203,23 @@ export default function CampgroundViewPage({
                   customers
                 </p>
 
-                <a
-                  href="#"
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsModalOpen(true);
+                  }}
+                  type="button"
                   className="mt-6 inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 sm:w-auto lg:w-full"
                 >
                   Write a review
-                </a>
+                </button>
               </div>
             </div>
+            <ReviewModal
+              open={isModalOpen}
+              setOpen={setIsModalOpen}
+              description={modalReview}
+            />
 
             <div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
               <h3 className="sr-only">Recent reviews</h3>

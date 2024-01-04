@@ -8,7 +8,7 @@ interface ModalProps {
   description: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
+export const DescriptionModal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -61,15 +61,6 @@ export const Modal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-7 sm:flex sm:flex-row-reverse">
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
-                  >
-                    Close
-                  </button>
-                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -79,4 +70,4 @@ export const Modal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
   );
 };
 
-export default Modal;
+export default DescriptionModal;

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Modal } from "../utils/Modal";
+import { DescriptionModal } from "../utils/DescriptionModal";
 
 const defaultImageUrl = "/images/default-image.jpg";
 
@@ -93,7 +93,7 @@ export function Campgrounds() {
           </li>
         );
       })}
-      <Modal
+      <DescriptionModal
         open={isModalOpen}
         setOpen={setIsModalOpen}
         description={modalDescription}
