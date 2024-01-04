@@ -4,34 +4,6 @@ import utils from "../../../styles/utils.module.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "../../../styles/page.module.css";
-import { title } from "process";
-import { StarIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
-
-const reviews = {
-  average: 4,
-  totalCount: 1624,
-  counts: [
-    { rating: 5, count: 1019 },
-    { rating: 4, count: 162 },
-    { rating: 3, count: 97 },
-    { rating: 2, count: 199 },
-    { rating: 1, count: 147 },
-  ],
-  featured: [
-    {
-      id: 1,
-      rating: 5,
-      content: `
-        <p>This is the bag of my dreams. I took it on my last vacation and was able to fit an absurd amount of snacks for the many long and hungry flights.</p>
-      `,
-      author: "Emily Selman",
-      avatarSrc:
-        "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-    },
-    // More reviews...
-  ],
-};
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -51,15 +23,6 @@ type Campground = {
   description: string;
   imageUrls: string[];
 };
-
-const faqs = [
-  {
-    id: 1,
-    question: "What's the best thing about Switzerland?",
-    answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-  },
-];
 
 export default function CampgroundViewPage({
   params,
@@ -97,7 +60,7 @@ export default function CampgroundViewPage({
             imageUrls={campground.imageUrls}
           />
           <div className="flex flex-col">
-            <div className="bg-white ml-4 xs:mt-20 lg:mt-0">
+            <div className="ml-4 bg-white xs:mt-20 lg:mt-0">
               <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:grid-cols-12 lg:gap-x-8 lg:px-8">
                 <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">
                   {campground.title}
