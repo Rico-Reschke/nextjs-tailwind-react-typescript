@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
+import "../../styles/stars.css";
 
 interface ModalProps {
   open: boolean;
@@ -8,7 +9,11 @@ interface ModalProps {
   description: string;
 }
 
-export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen, description }) => {
+export const ReviewModal: React.FC<ModalProps> = ({
+  open,
+  setOpen,
+  description,
+}) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -55,15 +60,73 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen, description }
                       Write a Review
                     </Dialog.Description>
                     <div className="mt-4">
-                      <textarea placeholder="Write your review here..." className="w-full h-32 px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                      </textarea>
+                      <textarea
+                        placeholder="Write your review here..."
+                        className="h-32 w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
+                <fieldset className="starability-basic">
+                  <input
+                    type="radio"
+                    id="no-rate"
+                    className="input-no-rate"
+                    name="review[rating]"
+                    value="1"
+                    checked
+                    aria-label="No rating."
+                  />
+                  <input
+                    type="radio"
+                    id="first-rate1"
+                    name="review[rating]"
+                    value="1"
+                  />
+                  <label htmlFor="first-rate1" title="Terrible">
+                    1 star
+                  </label>
+                  <input
+                    type="radio"
+                    id="first-rate2"
+                    name="review[rating]"
+                    value="2"
+                  />
+                  <label htmlFor="first-rate2" title="Not good">
+                    2 stars
+                  </label>
+                  <input
+                    type="radio"
+                    id="first-rate3"
+                    name="review[rating]"
+                    value="3"
+                  />
+                  <label htmlFor="first-rate3" title="Average">
+                    3 stars
+                  </label>
+                  <input
+                    type="radio"
+                    id="first-rate4"
+                    name="review[rating]"
+                    value="4"
+                  />
+                  <label htmlFor="first-rate4" title="Very good">
+                    4 stars
+                  </label>
+                  <input
+                    type="radio"
+                    id="first-rate5"
+                    name="review[rating]"
+                    value="5"
+                  />
+                  <label htmlFor="first-rate5" title="Amazing">
+                    5 stars
+                  </label>
+                </fieldset>
                 <div className="mt-5 sm:mt-7 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="mt-3 mr-2 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mr-2 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => setOpen(false)}
                   >
                     Submit
