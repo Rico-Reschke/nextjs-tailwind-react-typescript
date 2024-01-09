@@ -74,7 +74,7 @@ export default function CampgroundViewPage({
   }, [params.id]);
 
   if (campground) {
-    console.log(campground.imageUrls[0]);
+    // console.log(campground.imageUrls[0]);
   }
 
   return (

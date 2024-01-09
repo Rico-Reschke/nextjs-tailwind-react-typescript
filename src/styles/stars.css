@@ -63,7 +63,7 @@
   }
   
   .starability-basic > input:checked ~ label,
-  .starability-basic > input:focus ~ label {
+  .starability-basic > input:checked ~ label {
     background-position: 0 0;
   }
   
@@ -109,7 +109,7 @@
   .starability-basic > label {
     position: relative;
     display: inline-block;
-    float: left;
+    float: none;
     width: 30px;
     height: 30px;
     font-size: 0.1em;

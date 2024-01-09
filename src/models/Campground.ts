@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, models } from "mongoose";
 
 const campgroundSchema = new Schema(
   {
@@ -24,6 +24,5 @@ const campgroundSchema = new Schema(
   },
 );
 
-const Campground =
-  mongoose.models.Campground || mongoose.model("Campground", campgroundSchema);
+const Campground = models.Campground || mongoose.model("Campground", campgroundSchema);
 export default Campground;

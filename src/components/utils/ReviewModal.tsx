@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
 import "../../styles/stars.css";
-import Head from "next/head";
+import { useState } from "react";
 
 interface ModalProps {
   open: boolean;
@@ -10,7 +10,34 @@ interface ModalProps {
   description: string;
 }
 
+const submitReview = async (reviewData: any) => {
+  try {
+    const response = await fetch('/api/reviews', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json' 
+       },
+       body: JSON.stringify(reviewData),
+    })
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error('There was a problem with the fetch oeration:', error)
+  }
+}
+
+
 export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(0);
+
+  const handleSubmit = async (e: any) => {
+    event?.preventDefault();
+    const reviewData = { body: reviewText, rating: rating };
+    await submitReview(reviewData);
+  }
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -48,7 +75,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                     <AiFillCloseSquare className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="">
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Description
@@ -61,6 +88,8 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                         <textarea
                           placeholder="Write your review here..."
                           className="h-32 w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          value={reviewText}
+                          onChange={(e) => setReviewText(e.target.value)}
                         ></textarea>
                       </div>
                     </div>
@@ -124,7 +153,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                   </div>
                   <div className="mt-5 sm:mt-7 sm:flex sm:flex-row-reverse">
                     <button
-                      type="button"
+                      type="submit"
                       className="mr-2 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                       onClick={() => setOpen(false)}
                     >

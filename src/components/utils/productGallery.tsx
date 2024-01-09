@@ -28,7 +28,7 @@ export default function ProductGallery({
   const [showLightbox, setShowLightbox] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
 
-  console.log(_id, title, location, price, description, imageUrls);
+  // console.log(_id, title, location, price, description, imageUrls);
 
   const displayImages =
     imageUrls && imageUrls.length > 0 ? imageUrls : [defaultImageUrl];

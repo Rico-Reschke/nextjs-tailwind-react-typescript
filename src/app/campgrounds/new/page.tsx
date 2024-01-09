@@ -10,7 +10,7 @@ const NewCampgroundForm = () => {
 
     try {
       const formData = new FormData();
-      console.log(formData)
+      // console.log(formData)
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("price", data.price);

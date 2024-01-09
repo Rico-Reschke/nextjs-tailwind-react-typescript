@@ -21,13 +21,13 @@ export default function Lightbox({
 }: LightboxProps) {
   const displayImages = imageUrls.length > 0 ? imageUrls : [defaultImageUrl];
 
-  console.log("imageUrls:", imageUrls);
+  // console.log("imageUrls:", imageUrls);
 
   const isOnlyDefaultImage =
     imageUrls.length === 0 ||
     (imageUrls.length === 1 && imageUrls[0] === defaultImageUrl);
 
-  console.log("isOnlyDefaultImage:", isOnlyDefaultImage);
+  // console.log("isOnlyDefaultImage:", isOnlyDefaultImage);
 
   const goToPrevImg = () => {
     if (!isOnlyDefaultImage) {
