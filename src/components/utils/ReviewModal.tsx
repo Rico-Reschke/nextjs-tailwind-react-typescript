@@ -10,23 +10,27 @@ interface ModalProps {
   description: string;
 }
 
-const submitReview = async (reviewData: any) => {
+const submitReview = async (campgroundId: string, reviewData: any) => {
   try {
-    const response = await fetch('/api/reviews', {
-      method: 'POST',
+    const response = await fetch(`/api/campgrounds/${campgroundId}/reviews`, {
+      method: "POST",
       headers: {
-      'Content-Type': 'application/json' 
-       },
-       body: JSON.stringify(reviewData),
-    })
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      // Optionally, you can extract more information from the response
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Network response was not ok");
     }
-  } catch (error) {
-    console.error('There was a problem with the fetch oeration:', error)
-  }
-}
 
+    const responseData = await response.json();
+    console.log("Review submitted successfully:", responseData);
+  } catch (error) {
+    console.error("There was a problem with the fetch oeration:", error);
+  }
+};
 
 export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
   const [reviewText, setReviewText] = useState("");
@@ -34,9 +38,14 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
 
   const handleSubmit = async (e: any) => {
     event?.preventDefault();
-    const reviewData = { body: reviewText, rating: rating };
-    await submitReview(reviewData);
-  }
+    const reviewData = {
+      body: reviewText, // Text from textarea
+      rating: rating, // Rating value
+    };
+
+    const campgroundId = "65536839a119b969563fb690"; // Replace with the actual campground ID
+    submitReview(campgroundId, reviewData);
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
