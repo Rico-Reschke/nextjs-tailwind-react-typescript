@@ -35,3 +35,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
+
+export async function GET(req: NextRequest) {
+  await connectMongoDB();
+  const reviews = await Review.find();
+  return NextResponse.json({ reviews });
+}
