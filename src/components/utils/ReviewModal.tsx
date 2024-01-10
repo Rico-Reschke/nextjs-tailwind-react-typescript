@@ -2,12 +2,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
 import "../../styles/stars.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation';
 
 interface ModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  description: string;
+  campgroundId: string;
 }
 
 const submitReview = async (campgroundId: string, reviewData: any) => {
@@ -17,7 +18,7 @@ const submitReview = async (campgroundId: string, reviewData: any) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(reviewData),
+      body: JSON.stringify(reviewData)
     });
     if (!response.ok) {
       // Optionally, you can extract more information from the response
@@ -35,16 +36,27 @@ const submitReview = async (campgroundId: string, reviewData: any) => {
 export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
+  const [campgroundId, setCampgroundId] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const id = pathname.split("/")[2];
+    setCampgroundId(id);
+  }, [pathname]);
 
   const handleSubmit = async (e: any) => {
     event?.preventDefault();
+    if (campgroundId) { 
     const reviewData = {
       body: reviewText, // Text from textarea
       rating: rating, // Rating value
+      campgroundId
     };
 
-    const campgroundId = "65536839a119b969563fb690"; // Replace with the actual campground ID
-    submitReview(campgroundId, reviewData);
+    await submitReview(campgroundId, reviewData);
+    } else {
+      console.error("Campground ID not found in the URL.")
+    }
   };
 
   return (
