@@ -54,6 +54,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
       };
 
       await submitReview(campgroundId, reviewData);
+      handleCloseModal();
     } else {
       console.error("Campground ID not found in the URL.");
     }
@@ -188,7 +189,6 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                     <button
                       type="submit"
                       className="mr-2 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                      onClick={() => setOpen(false)}
                     >
                       Submit
                     </button>
