@@ -59,9 +59,14 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setOpen(false);
+    setRating(0);
+  }
+
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" onClose={handleCloseModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -90,7 +95,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => setOpen(false)}
+                    onClick={handleCloseModal}
                   >
                     <span className="sr-only">Close</span>
                     <AiFillCloseSquare className="h-6 w-6" aria-hidden="true" />
