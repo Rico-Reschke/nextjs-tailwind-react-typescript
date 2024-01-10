@@ -218,9 +218,7 @@ export default function CampgroundViewPage({
             <ReviewModal
               open={isModalOpen}
               setOpen={setIsModalOpen}
-              description={modalReview}
             />
-
             <div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
               <h3 className="sr-only">Recent reviews</h3>
 

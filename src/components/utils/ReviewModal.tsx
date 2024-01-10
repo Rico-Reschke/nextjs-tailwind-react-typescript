@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 interface ModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  campgroundId: string;
 }
 
 const submitReview = async (campgroundId: string, reviewData: any) => {
