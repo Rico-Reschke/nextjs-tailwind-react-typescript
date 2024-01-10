@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Campgrounds",
-  description: "Campgrounds by Crackstein",
+  description: "Campgrounds project made by crackstein",
 };
 
 export default async function RootLayout({

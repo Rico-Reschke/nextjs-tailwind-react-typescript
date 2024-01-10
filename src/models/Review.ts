@@ -8,7 +8,7 @@ const reviewSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    campground: {  // Add this field to link the review to a campground
+    campground: {
         type: Schema.Types.ObjectId,
         ref: 'Campground'
     }
