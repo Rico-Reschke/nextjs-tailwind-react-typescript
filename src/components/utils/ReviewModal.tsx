@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
 import "../../styles/stars.css";
 import { useState, useEffect } from "react";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 interface ModalProps {
   open: boolean;
@@ -18,7 +18,7 @@ const submitReview = async (campgroundId: string, reviewData: any) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(reviewData)
+      body: JSON.stringify(reviewData),
     });
     if (!response.ok) {
       // Optionally, you can extract more information from the response
@@ -46,16 +46,16 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
 
   const handleSubmit = async (e: any) => {
     event?.preventDefault();
-    if (campgroundId) { 
-    const reviewData = {
-      body: reviewText, // Text from textarea
-      rating: rating, // Rating value
-      campgroundId
-    };
+    if (campgroundId) {
+      const reviewData = {
+        body: reviewText, // Text from textarea
+        rating: rating, // Rating value
+        campgroundId,
+      };
 
-    await submitReview(campgroundId, reviewData);
+      await submitReview(campgroundId, reviewData);
     } else {
-      console.error("Campground ID not found in the URL.")
+      console.error("Campground ID not found in the URL.");
     }
   };
 
@@ -97,7 +97,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit}>
-                  <div className="">
+                  <div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Description
                         as="h3"
@@ -117,19 +117,22 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                   </div>
                   <div className="flex justify-center">
                     <fieldset className="starability-basic">
-                      <input
+                    <input
                         type="radio"
                         id="no-rate"
                         className="input-no-rate"
                         name="review[rating]"
-                        value="1"
+                        value="0"
                         aria-label="No rating."
+                        checked={rating === 0}
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <input
                         type="radio"
                         id="first-rate1"
                         name="review[rating]"
                         value="1"
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <label htmlFor="first-rate1" title="Terrible">
                         1 star
@@ -139,6 +142,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                         id="first-rate2"
                         name="review[rating]"
                         value="2"
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <label htmlFor="first-rate2" title="Not good">
                         2 stars
@@ -148,6 +152,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                         id="first-rate3"
                         name="review[rating]"
                         value="3"
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <label htmlFor="first-rate3" title="Average">
                         3 stars
@@ -157,6 +162,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                         id="first-rate4"
                         name="review[rating]"
                         value="4"
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <label htmlFor="first-rate4" title="Very good">
                         4 stars
@@ -166,6 +172,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                         id="first-rate5"
                         name="review[rating]"
                         value="5"
+                        onChange={(e) => setRating(parseInt(e.target.value))}
                       />
                       <label htmlFor="first-rate5" title="Amazing">
                         5 stars
