@@ -52,6 +52,14 @@ type Campground = {
   imageUrls: string[];
 };
 
+interface Review {
+  user: string;
+  author: string;
+  content: string;
+  rating: number;
+  campground: string;
+}
+
 export default function CampgroundViewPage({
   params,
 }: CampgroundViewPageProps) {
@@ -59,6 +67,7 @@ export default function CampgroundViewPage({
   const [campground, setCampground] = useState<Campground | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalReview, setModalReview] = useState("");
+  const [review, setReview] = useState<Review[]>([]);
 
   useEffect(() => {
     const fetchCampground = async () => {
@@ -76,6 +85,9 @@ export default function CampgroundViewPage({
     const fetchReviews = async () => {
       const res = await fetch(`/api/campgrounds/${params.id}/reviews`);
       const data = await res.json();
+      if (data && data.reviews) {
+        setReview(data.reviews);
+      }
       console.log(data.reviews);
     }
     fetchReviews();
@@ -233,13 +245,13 @@ export default function CampgroundViewPage({
 
               <div className="flow-root">
                 <div className="-my-12 divide-y divide-gray-200">
-                  {reviews.featured.map((review) => (
-                    <div key={review.id} className="py-12">
+                  {review.map((review) => (
+                    <div key={review.user} className="py-12">
                       <div className="flex items-center">
                         <Image
                           width={48}
                           height={48}
-                          src={review.avatarSrc}
+                          src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
                           alt={`${review.author}.`}
                           className="h-12 w-12 rounded-full"
                         />
