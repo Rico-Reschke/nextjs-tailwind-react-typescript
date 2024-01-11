@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     // You might want to update the campground document here
     // For example, pushing the review to a 'reviews' field in campground
     // campground.reviews.push(review._id);
-    // await review.save(); 
+    // await review.save();
 
     return NextResponse.json(review, { status: 201 });
   } catch (error: any) {
@@ -64,6 +64,6 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
   } catch (error: any) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
-    
+
   }
 }
