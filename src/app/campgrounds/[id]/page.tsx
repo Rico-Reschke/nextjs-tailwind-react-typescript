@@ -59,19 +59,20 @@ export default function CampgroundViewPage({
   const [campground, setCampground] = useState<Campground | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalReview, setModalReview] = useState("");
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const fetchCampground = async () => {
       const res = await fetch(`/api/campgrounds/${params.id}`);
-      const campground = await res.json();
-      if (!campground) {
+      const data = await res.json();
+      if (!data) {
         router.push("/campgrounds");
       } else {
-        setCampground(campground);
+        setCampground(data.campground);
       }
     };
     fetchCampground();
-  }, [params.id]);
+  }, [params.id, router]);
 
   if (campground) {
     // console.log(campground.imageUrls[0]);

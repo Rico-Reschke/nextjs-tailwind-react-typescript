@@ -2,17 +2,20 @@ import mongoose, { Schema, models } from "mongoose";
 
 
 const reviewSchema = new Schema({
-    body: String,
+    content: String,
     rating: Number,
-    author: {
+    author: String,
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
     campground: {
         type: Schema.Types.ObjectId,
         ref: 'Campground'
-    }
-});
+    },
+},
+    { timestamps: true }
+);
 
 const Review = models.Review || mongoose.model("Review", reviewSchema);
 export default Review;

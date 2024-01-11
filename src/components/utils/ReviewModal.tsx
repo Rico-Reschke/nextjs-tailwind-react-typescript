@@ -47,11 +47,11 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
     event?.preventDefault();
     if (campgroundId) {
       const reviewData = {
-        body: reviewText, // Text from textarea
+        content: reviewText, // Text from textarea
         rating: rating, // Rating value
         campgroundId,
       };
-
+      console.log(reviewData);
       await submitReview(campgroundId, reviewData);
       handleCloseModal();
     } else {
@@ -62,7 +62,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
   const handleCloseModal = () => {
     setOpen(false);
     setRating(0);
-  }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -122,7 +122,7 @@ export const ReviewModal: React.FC<ModalProps> = ({ open, setOpen }) => {
                   </div>
                   <div className="flex justify-center">
                     <fieldset className="starability-basic">
-                    <input
+                      <input
                         type="radio"
                         id="no-rate"
                         className="input-no-rate"

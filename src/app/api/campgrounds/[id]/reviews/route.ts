@@ -2,16 +2,29 @@ import connectMongoDB from "@/libs/mongodb";
 import Review from "@/models/Review";
 import Campground from "@/models/Campground";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth"
+import User from "@/models/User";
 
 export async function POST(req: NextRequest) {
   await connectMongoDB();
+  const session = await getServerSession();
+
+  const email = session?.user?.email;
+  // console.log("Email:", email);
+
+  const user = await User.findOne({ email });
+  console.log("User:", user)
+  if (!user) {
+    return { status: 404, json: { error: 'User not found' } };
+  }
 
   try {
     const json = await req.json();
+    // console.log("Received review data:", json)
     
     const url = new URL(req.url);
     const campgroundId = url.pathname.split('/')[3];
-    console.log(campgroundId);
+    // console.log(campgroundId);
     // Find the campground by ID
     const campground = await Campground.findById(campgroundId);
     if (!campground) {
@@ -20,15 +33,21 @@ export async function POST(req: NextRequest) {
 
     // Create and save the new review
     const review = await Review.create({
-      body: json.body,
+      content: json.content,
       rating: json.rating,
-      campground: campground._id, // Link review to the campground if necessary
+      campground: campground._id,
+      author: user.name,
+      user: user._id,
     });
+
+    console.log("Review:", review)
+
+    // console.log("Review object:", review);
 
     // You might want to update the campground document here
     // For example, pushing the review to a 'reviews' field in campground
     // campground.reviews.push(review._id);
-    // await campground.save();
+    // await review.save(); 
 
     return NextResponse.json(review, { status: 201 });
   } catch (error: any) {
@@ -36,8 +55,15 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: { params: { id: string }  }) {
   await connectMongoDB();
-  const reviews = await Review.find();
-  return NextResponse.json({ reviews });
+
+  try {
+    const reviews = await Review.find({ campground: params.id }).populate('user', 'name');
+    return NextResponse.json({ reviews }, { status: 200 }); 
+
+  } catch (error: any) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    
+  }
 }
