@@ -3,9 +3,9 @@ import { MapBox } from "@/components/utils/MapBox";
 
 export default function Campground() {
   return (
-    <>
-      <MapBox />
-      <Campgrounds />
-    </>
+      <div className="2xl:container mx-auto px-4">
+        <MapBox />
+        <Campgrounds />
+      </div>
   );
 }

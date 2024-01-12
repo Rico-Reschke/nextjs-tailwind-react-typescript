@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession();
 
   const email = session?.user?.email;
-  // console.log("Email:", email);
 
   const user = await User.findOne({ email });
   console.log("User:", user)
@@ -20,8 +19,6 @@ export async function POST(req: NextRequest) {
 
   try {
     const json = await req.json();
-    // console.log("Received review data:", json)
-    
     const url = new URL(req.url);
     const campgroundId = url.pathname.split('/')[3];
     // console.log(campgroundId);

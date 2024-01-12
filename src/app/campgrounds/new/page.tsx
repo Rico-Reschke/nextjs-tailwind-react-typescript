@@ -43,7 +43,7 @@ const NewCampgroundForm = () => {
   };
 
   return (
-    <section className="bg-white">
+    <section className="container bg-white">
       <div className="mx-auto mt-4 flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
         <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
