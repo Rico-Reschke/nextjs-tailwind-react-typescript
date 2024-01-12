@@ -1,11 +1,13 @@
 "use client";
 
+import SecuritySettings from "@/components/pages/SecuritySettings";
+
 interface SecurityPageProps {}
 
 export default function SecurityPage({}: SecurityPageProps) {
   return (
     <>
-      <p>security</p>
+      <SecuritySettings />
     </>
   );
 }

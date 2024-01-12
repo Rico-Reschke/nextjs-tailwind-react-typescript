@@ -9,6 +9,8 @@ export async function POST(req: NextRequest) {
   await connectMongoDB();
   const session = await getServerSession();
 
+  console.log("Session:", session)
+
   const email = session?.user?.email;
 
   const user = await User.findOne({ email });

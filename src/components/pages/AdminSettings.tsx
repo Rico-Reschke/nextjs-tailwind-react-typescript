@@ -9,26 +9,46 @@ import {
 } from "@heroicons/react/24/outline";
 
 const secondaryNavigation = [
-  { name: "General", href: "http://127.0.0.1:3000/campgrounds/settings/general", icon: UserCircleIcon, current: true },
-  { name: "Security", href: "http://127.0.0.1:3000/campgrounds/settings/security", icon: FingerPrintIcon, current: false },
-  { name: "Notifications", href: "http://127.0.0.1:3000/campgrounds/settings/notifications", icon: BellIcon, current: false },
-  { name: "Team members", href: "http://127.0.0.1:3000/campgrounds/settings/members", icon: UsersIcon, current: false },
+  {
+    name: "General",
+    href: "http://127.0.0.1:3000/campgrounds/settings/general",
+    icon: UserCircleIcon,
+    current: false,
+  },
+  {
+    name: "Security",
+    href: "http://127.0.0.1:3000/campgrounds/settings/security",
+    icon: FingerPrintIcon,
+    current: false,
+  },
+  {
+    name: "Notifications",
+    href: "http://127.0.0.1:3000/campgrounds/settings/notifications",
+    icon: BellIcon,
+    current: false,
+  },
+  {
+    name: "Admin",
+    href: "http://127.0.0.1:3000/campgrounds/settings/admin",
+    icon: UsersIcon,
+    current: true,
+  },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function General() {
+export default function Members() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
-    
+
   return (
     <>
       <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8">
         <aside className="flex overflow-x-auto border-b border-gray-900/5 py-4 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
-          <nav className="flex-none px-4 sm:px-6 lg:px-0">
+          <nav className="flex-none px-4 sm:mx-auto lg:px-0">
             <ul
               role="list"
               className="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col"
@@ -272,5 +292,5 @@ export default function General() {
         </main>
       </div>
     </>
-  )
+  );
 }

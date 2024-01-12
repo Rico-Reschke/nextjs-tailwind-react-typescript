@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
   await connectMongoDB();
   try {
     const json = await req.json();
+    console.log("REGISTER", json);
     
     log("REGISTER", json);
 
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       name: json.name,
       email: json.email,
       password: hashedPassword,
+      role: json.role,
     });
 
     return NextResponse.json(user, { status: 201 });

@@ -1,12 +1,13 @@
 "use client";
-import Settings from "../../../../components/pages/Settings";
+
+import GeneralSettings from "@/components/pages/GeneralSettings";
 
 interface GeneralPageProps {}
 
 export default function GeneralPage({}: GeneralPageProps) {
   return (
     <>
-      <Settings />
+      <GeneralSettings />
     </>
   );
 }

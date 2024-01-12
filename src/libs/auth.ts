@@ -2,9 +2,19 @@ import bcrypt from 'bcrypt';
 import { log } from 'console';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
+import { Session } from 'next-auth';
 import connectMongoDB from '@/libs/mongodb';
 import User from '@/models/User';
+
+interface ExtendedUser {
+  role?: string;
+}
+
+interface ExtendedSession extends Session {
+  user?: {
+    role?: string;
+  } & Session['user'];
+}
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -47,6 +57,22 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
       },
+
+      
     }),
   ],
+
+  // callbacks: {
+  //   async session({ session, user }) {
+  //     const extendedSession = session as ExtendedSession;
+  //     const extendedUser = user as ExtendedUser;
+
+  //     // Prüfen Sie, ob user und session.user existieren und fügen Sie die Rolle hinzu
+  //     if (extendedUser.role && extendedSession.user) {
+  //       extendedSession.user.role = extendedUser.role;
+  //     }
+
+  //     return extendedSession;
+  //   },
+  // },
 };
