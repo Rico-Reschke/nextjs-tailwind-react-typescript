@@ -7,6 +7,7 @@ import styles from "../../../styles/page.module.css";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { ReviewModal } from "../../../components/utils/ReviewModal";
+import { useSession } from "next-auth/react";
 
 const reviews = {
   average: 4,
@@ -84,6 +85,7 @@ export default function CampgroundViewPage({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalReview, setModalReview] = useState("");
   const [review, setReview] = useState<Review[]>([]);
+  const { data: session } = useSession();
   const [reviewStats, setReviewStats] = useState({
     average: 0,
     totalCount: 0,
@@ -102,7 +104,7 @@ export default function CampgroundViewPage({
       }
     };
     fetchCampground();
-
+  
     const fetchReviews = async () => {
       const res = await fetch(`/api/campgrounds/${params.id}/reviews`);
       const data = await res.json();

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Dialog, Switch } from "@headlessui/react";
+import { useSession } from "next-auth/react";
 import {
   BellIcon,
   FingerPrintIcon,
@@ -39,10 +40,24 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Members() {
+export default function Admin() {
+  const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
+
+  const isAdmin = session?.user?.role === "admin";
+
+  if(!isAdmin) {
+    return <p>Zugriff verweigert. Nur für Admins</p>
+  }
+
+  if (session && session.user && session.user.role) {
+    console.log("Rolle des Benutzers:", session.user.role);
+    // Hier können Sie Logik basierend auf der Rolle hinzufügen
+  } else {
+    console.log("Benutzer ist nicht angemeldet oder hat keine Rolle");
+  }
 
   return (
     <>

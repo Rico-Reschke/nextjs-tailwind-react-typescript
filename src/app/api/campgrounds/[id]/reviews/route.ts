@@ -5,11 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth"
 import User from "@/models/User";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, context: any) {
   await connectMongoDB();
   const session = await getServerSession();
-
-  console.log("Session:", session)
 
   const email = session?.user?.email;
 
