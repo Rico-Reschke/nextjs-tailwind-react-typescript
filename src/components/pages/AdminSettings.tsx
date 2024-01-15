@@ -46,14 +46,14 @@ export default function Admin() {
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
 
-  const isAdmin = session?.user?.role === "admin";
+  // const isAdmin = session?.user?.role === "admin";
 
-  if(!isAdmin) {
-    return <p>Zugriff verweigert. Nur für Admins</p>
-  }
+  // if(!isAdmin) {
+  //   return <p>Zugriff verweigert. Nur für Admins</p>
+  // }
 
   if (session && session.user && session.user.role) {
-    console.log("Rolle des Benutzers:", session.user.role);
+    console.log("Rolle des Benutzers:", session);
     // Hier können Sie Logik basierend auf der Rolle hinzufügen
   } else {
     console.log("Benutzer ist nicht angemeldet oder hat keine Rolle");

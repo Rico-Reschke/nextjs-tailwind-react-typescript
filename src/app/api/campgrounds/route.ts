@@ -47,3 +47,27 @@ export async function GET() {
   const campgrounds = await Campground.find();
   return NextResponse.json({ campgrounds });
 }
+
+// export async function DELETE(request: NextRequest) {
+//   try {
+//     await connectMongoDB();
+//     const { campgroundId } = await request.json();
+//     const userId = request.locals.userId; // Annahme: Die Benutzer-ID ist in request.locals gespeichert
+
+//     const campground = await Campground.findById(campgroundId);
+//     if (!campground) {
+//       return NextResponse.json({ error: "Campground not found" }, { status: 404 });
+//     }
+
+//     if (campground.userId.toString() !== userId) {
+//       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//     }
+
+//     await campground.remove();
+//     return NextResponse.json({ message: "Campground removed" });
+//   } catch (error) {
+//     return NextResponse.json(JSON.parse(JSON.stringify(error)), {
+//       status: 500,
+//     });
+//   }
+// }

@@ -54,6 +54,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role; // Hier wird TypeScript nun die 'role'-Eigenschaft erkennen
+        token.userId = user._id.toString();
       }
       return token;
     },
@@ -62,6 +63,7 @@ export const authOptions: NextAuthOptions = {
         session.user = {};
       }
       session.user.role = token.role as string; // Nun ist sichergestellt, dass session.user existiert
+      session.user.id = token.userId;
       return session;
     },
   },
