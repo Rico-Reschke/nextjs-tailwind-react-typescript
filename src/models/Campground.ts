@@ -7,10 +7,10 @@ const campgroundSchema = new Schema(
     price: Number,
     description: String,
     imageUrls: [String],
-    userId: {
-      type: Schema.Types.ObjectId,
+    creator: {
+      type: mongoose.Schema.Types.ObjectId, // Referenz auf das Benutzermodell
+      ref: 'User', // Nehmen Sie an, dass Ihr Benutzermodell 'User' heißt
       required: true,
-      ref: 'User'
     },
     geometry: {
       type: {

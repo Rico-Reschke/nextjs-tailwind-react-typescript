@@ -4,6 +4,8 @@ import Campground from "@/models/Campground";
 import { v2 as cloudinary } from "cloudinary";
 import { log } from "console";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from 'next-auth';
+import { authOptions } from "@/libs/auth";
 
 cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
@@ -17,6 +19,8 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const files = formData.getAll("files") as unknown as File[];
     const data = Object.fromEntries(formData.entries());
+    const session = await getServerSession({ req: request, ...authOptions });
+    console.log(session);
 
     const imageUrls: string[] = [];
     for (const file of files) {
@@ -24,6 +28,8 @@ export async function POST(request: NextRequest) {
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);
     }
+
+    const userId = session?.user.id;
 
     log("finished upload");
 
@@ -33,7 +39,9 @@ export async function POST(request: NextRequest) {
       price: data.price,
       description: data.description,
       imageUrls,
+      creator: userId,
     });
+
     return NextResponse.json(campground, { status: 201 });
   } catch (error) {
     return NextResponse.json(JSON.parse(JSON.stringify(error)), {
@@ -47,27 +55,3 @@ export async function GET() {
   const campgrounds = await Campground.find();
   return NextResponse.json({ campgrounds });
 }
-
-// export async function DELETE(request: NextRequest) {
-//   try {
-//     await connectMongoDB();
-//     const { campgroundId } = await request.json();
-//     const userId = request.locals.userId; // Annahme: Die Benutzer-ID ist in request.locals gespeichert
-
-//     const campground = await Campground.findById(campgroundId);
-//     if (!campground) {
-//       return NextResponse.json({ error: "Campground not found" }, { status: 404 });
-//     }
-
-//     if (campground.userId.toString() !== userId) {
-//       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-//     }
-
-//     await campground.remove();
-//     return NextResponse.json({ message: "Campground removed" });
-//   } catch (error) {
-//     return NextResponse.json(JSON.parse(JSON.stringify(error)), {
-//       status: 500,
-//     });
-//   }
-// }
