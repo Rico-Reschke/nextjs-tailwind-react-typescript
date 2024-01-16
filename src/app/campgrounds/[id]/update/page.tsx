@@ -1,28 +1,42 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 
-const UpdatePage = () => {
+const UpdatePage = ({ params }: { params: { id: string } }) => {
   const { register, handleSubmit } = useForm();
+  console.log(params.id);
 
   const onSubmit = async (data: any) => {
     const files = Array.from(data.images as FileList);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("location", data.location);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    files.forEach((file) => formData.append("files", file));
+
+    if (!params.id) {
+      console.error("Campground-ID ist nicht verfügbar.");
+      return;
+    }
 
     try {
-      const formData = new FormData();
-      // console.log(formData)
-      formData.append("title", data.title);
-      formData.append("location", data.location);
-      formData.append("price", data.price);
-      formData.append("description", data.description);
-      files.forEach((file) => formData.append("files", file));
-
-      const res = await fetch("/api/campgrounds", {
-        method: "POST",
+      const res = await fetch(`/api/campgrounds/${params.id}`, {
+        method: "PUT",
         body: formData,
       });
+
+      if (!res.ok) {
+        throw new Error(`Fehler: ${res.status}`);
+      }
+
+      // Benutzer über das erfolgreiche Update informieren
+      alert("Campground erfolgreich aktualisiert.");
+      // Optional: Umleiten zur Campground-Detailseite oder -Übersicht
     } catch (error) {
-      console.error(error);
+      console.error("Fehler beim Aktualisieren des Campgrounds:", error);
+      alert("Fehler beim Aktualisieren des Campgrounds.");
     }
   };
 

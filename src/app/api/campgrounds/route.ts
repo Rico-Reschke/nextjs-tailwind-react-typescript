@@ -61,18 +61,14 @@ export async function DELETE(request: NextRequest) {
     await connectMongoDB();
     const session = await getServerSession({ req: request, ...authOptions });
 
-    // Überprüfen, ob der Benutzer angemeldet ist
     if (!session || !session.user) {
       return NextResponse.json({ message: "Nicht autorisiert" }, { status: 401 });
     }
 
-    // Extrahieren der Campground-ID aus der URL oder dem Request-Body
     const campgroundId = request.nextUrl.pathname.split('/').pop();
 
-    // Finden des Campgrounds in der Datenbank
     const campground = await Campground.findById(campgroundId);
 
-    // Überprüfen, ob der angemeldete Benutzer der Ersteller des Campgrounds ist
     if (campground && campground.creator.toString() === session.user.id) {
       await campground.deleteOne();
       return NextResponse.json({ message: "Campground gelöscht" });
@@ -86,25 +82,36 @@ export async function DELETE(request: NextRequest) {
   }
 }
 
-// export async function PUT(request: NextRequest) {
-//   try {
-//     await connectMongoDB();
-//     const session = await getServerSession({ req: request, ...authOptions });
+export async function PUT(request: NextRequest) {
+  try {
+    await connectMongoDB();
+    const session = await getServerSession({ req: request, ...authOptions });
 
-//     // Überprüfen, ob der Benutzer angemeldet ist
-//     if (!session || !session.user) {
-//       return NextResponse.json({ message: "Nicht autorisiert" }, { status: 401 });
-//     }
+    if (!session || !session.user) {
+      return NextResponse.json({ message: "Nicht autorisiert" }, { status: 401 });
+    }
 
-//     // Extrahieren der Campground-ID aus der URL oder dem Request-Body
-//     const campgroundId = request.nextUrl.pathname.split('/').pop();
+    const campgroundId = request.nextUrl.pathname.split('/').pop();
+    if (!campgroundId) {
+      return NextResponse.json({ message: "Campground-ID fehlt" }, { status: 400 });
+    }
 
-//     // Zusätzliche Logik, um die Campground-Daten zu aktualisieren
-//     const updateData = { /* Daten aus der Anfrage */ };
-//     await Campground.findByIdAndUpdate(campgroundId, updateData);
+    const campground = await Campground.findById(campgroundId);
+    if (!campground) {
+      return NextResponse.json({ message: "Campground nicht gefunden" }, { status: 404 });
+    }
 
-//     return NextResponse.json({ message: "Campground aktualisiert" });
-//   } catch (error: any) {
-//     return NextResponse.json({ message: error.message }, { status: 500 });
-//   }
-// }
+    if (campground.creator.toString() !== session.user.id) {
+      return NextResponse.json({ message: "Nicht autorisiert" }, { status: 403 });
+    }
+
+    // Extrahieren Sie die zu aktualisierenden Daten aus dem Request-Body
+    const updateData = await request.json(); // oder eine andere Methode, um Daten aus dem Request zu erhalten
+
+    await Campground.findByIdAndUpdate(campgroundId, updateData);
+
+    return NextResponse.json({ message: "Campground aktualisiert" });
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}

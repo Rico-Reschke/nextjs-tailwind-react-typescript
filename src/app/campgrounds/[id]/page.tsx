@@ -154,6 +154,12 @@ export default function CampgroundViewPage({
     }
   };
 
+  const handleUpdate = () => {
+    if (campground && campground._id) {
+      router.push(`/campgrounds/${campground._id}/update`);
+    }
+  };
+
   return (
     <main className={`${styles.main} ${utils.flex}`}>
       <div className="flex flex-col">
@@ -304,12 +310,12 @@ export default function CampgroundViewPage({
                   session &&
                   campground.creator === session.user.id && (
                     <div className="flex space-x-4">
-                      {/* <button
+                      <button
                         onClick={handleUpdate}
                         className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
                       >
                         Update Campground
-                      </button> */}
+                      </button>
                       <button
                         onClick={handleDelete}
                         className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
