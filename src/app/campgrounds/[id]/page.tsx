@@ -61,6 +61,7 @@ type CampgroundViewPageProps = {
 };
 
 type Campground = {
+  creator: string;
   _id: string;
   title: string;
   location: string;
@@ -104,7 +105,7 @@ export default function CampgroundViewPage({
       }
     };
     fetchCampground();
-  
+
     const fetchReviews = async () => {
       const res = await fetch(`/api/campgrounds/${params.id}/reviews`);
       const data = await res.json();
@@ -121,6 +122,37 @@ export default function CampgroundViewPage({
   if (campground) {
     // console.log(campground.imageUrls[0]);
   }
+
+  const handleDelete = async () => {
+    if (!campground || !campground._id) {
+      console.error("Campground-Informationen fehlen.");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Sind Sie sicher, dass Sie diesen Campground löschen möchten?",
+    );
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/campgrounds/${campground._id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Fehler: ${response.status}`);
+      }
+
+      // Optionale Benachrichtigung oder Umleitung nach erfolgreichem Löschen
+      alert("Campground erfolgreich gelöscht.");
+      router.push("/campgrounds"); // Umleitung zur Campgrounds-Übersicht
+    } catch (error) {
+      console.error("Fehler beim Löschen des Campgrounds:", error);
+      alert("Es gab ein Problem beim Löschen des Campgrounds.");
+    }
+  };
 
   return (
     <main className={`${styles.main} ${utils.flex}`}>
@@ -266,6 +298,26 @@ export default function CampgroundViewPage({
                 >
                   Write a review
                 </button>
+              </div>
+              <div className="mt-10">
+                {campground &&
+                  session &&
+                  campground.creator === session.user.id && (
+                    <div className="flex space-x-4">
+                      {/* <button
+                        onClick={handleUpdate}
+                        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                      >
+                        Update Campground
+                      </button> */}
+                      <button
+                        onClick={handleDelete}
+                        className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
+                      >
+                        Delete Campground
+                      </button>
+                    </div>
+                  )}
               </div>
             </div>
             <ReviewModal open={isModalOpen} setOpen={setIsModalOpen} />
