@@ -5,35 +5,36 @@ import React, { useEffect, useState } from "react";
 
 const UpdatePage = ({ params }: { params: { id: string } }) => {
   const { register, handleSubmit } = useForm();
-  console.log(params.id);
+  // console.log(params.id);
 
   const onSubmit = async (data: any) => {
-    const files = Array.from(data.images as FileList);
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("location", data.location);
-    formData.append("price", data.price);
-    formData.append("description", data.description);
-    files.forEach((file) => formData.append("files", file));
-
     if (!params.id) {
       console.error("Campground-ID ist nicht verfügbar.");
       return;
     }
-
+  
+    const updateData = {
+      title: data.title,
+      location: data.location,
+      price: data.price,
+      description: data.description,
+      // Hier könntest du weitere Daten hinzufügen
+    };
+  
     try {
       const res = await fetch(`/api/campgrounds/${params.id}`, {
         method: "PUT",
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData)
       });
-
+  
       if (!res.ok) {
         throw new Error(`Fehler: ${res.status}`);
       }
-
-      // Benutzer über das erfolgreiche Update informieren
+  
       alert("Campground erfolgreich aktualisiert.");
-      // Optional: Umleiten zur Campground-Detailseite oder -Übersicht
     } catch (error) {
       console.error("Fehler beim Aktualisieren des Campgrounds:", error);
       alert("Fehler beim Aktualisieren des Campgrounds.");

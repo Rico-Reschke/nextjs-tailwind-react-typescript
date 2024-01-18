@@ -21,3 +21,20 @@ export async function DELETE(
   const campground = await Campground.findByIdAndDelete(params.id);
   return NextResponse.json(campground, { status: 200 });
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  await connectMongoDB();
+
+  // Extrahiere die zu aktualisierenden Daten aus dem Request-Body
+  const updateData = await request.json(); // oder eine andere Methode, um Daten aus dem Request zu erhalten
+
+  // Aktualisiere den Campground anhand seiner ID
+  const campground = await Campground.findByIdAndUpdate(params.id, updateData, { new: true });
+
+  // Gib den aktualisierten Campground als Antwort zurück
+  return NextResponse.json(campground, { status: 200 });
+}
+
