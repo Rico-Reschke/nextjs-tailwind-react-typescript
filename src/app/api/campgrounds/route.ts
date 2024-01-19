@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const files = formData.getAll("files") as unknown as File[];
     const data = Object.fromEntries(formData.entries());
     const session = await getServerSession({ req: request, ...authOptions });
-    console.log(session);
+    const userId = session?.user.id;
 
     const imageUrls: string[] = [];
     for (const file of files) {
@@ -28,8 +28,6 @@ export async function POST(request: NextRequest) {
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);
     }
-
-    const userId = session?.user.id;
 
     log("finished upload");
 

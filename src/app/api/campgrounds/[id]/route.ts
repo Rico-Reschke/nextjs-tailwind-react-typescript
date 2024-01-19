@@ -1,5 +1,9 @@
+import { authOptions } from "@/libs/auth";
+import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
+import { log } from "console";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -28,13 +32,36 @@ export async function PUT(
 ) {
   await connectMongoDB();
 
-  // Extrahiere die zu aktualisierenden Daten aus dem Request-Body
-  const updateData = await request.json(); // oder eine andere Methode, um Daten aus dem Request zu erhalten
+  const formData = await request.formData();
+    const files = formData.getAll("files") as unknown as File[];
+    const data = Object.fromEntries(formData.entries());
 
-  // Aktualisiere den Campground anhand seiner ID
-  const campground = await Campground.findByIdAndUpdate(params.id, updateData, { new: true });
+    const imageUrls: string[] = [];
+    for (const file of files) {
+      log(file);
+      const uploaded = await uploadImage(file);
+      imageUrls.push(uploaded?.url as string);
+    }
 
-  // Gib den aktualisierten Campground als Antwort zurück
-  return NextResponse.json(campground, { status: 200 });
+    log("finished upload");
+
+  // const newImageUrls: string[] = [];
+  // for (const file of newFiles) {
+  //   const uploaded = await uploadImage(file);
+  //   newImageUrls.push(uploaded?.url as string);
+  // }
+
+  // campground.imageUrls = [...campground.imageUrls, ...newImageUrls];
+
+  const campgroundUpdate = await Campground.findByIdAndUpdate(params.id, {
+    title: data.title,
+    location: data.location,
+    price: data.price,
+    description: data.description,
+    // imageUrls: campground.imageUrls,
+  }, { new: true });
+
+  await campgroundUpdate.save();
+
 }
 
