@@ -2,9 +2,16 @@ import { authOptions } from "@/libs/auth";
 import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
+import { v2 as cloudinary } from "cloudinary";
 import { log } from "console";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+
+cloudinary.config({
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+});
 
 export async function GET(
   request: NextRequest,
