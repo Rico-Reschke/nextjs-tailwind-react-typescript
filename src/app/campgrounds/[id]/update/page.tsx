@@ -27,9 +27,6 @@ const UpdatePage = ({ params }: { params: { id: string } }) => {
 
       const res = await fetch(`/api/campgrounds/${params.id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: formData,
       });
 

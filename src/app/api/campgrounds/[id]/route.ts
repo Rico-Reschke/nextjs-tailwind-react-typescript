@@ -36,32 +36,36 @@ export async function PUT(
     const files = formData.getAll("files") as unknown as File[];
     const data = Object.fromEntries(formData.entries());
 
-    const imageUrls: string[] = [];
-    for (const file of files) {
-      log(file);
-      const uploaded = await uploadImage(file);
-      imageUrls.push(uploaded?.url as string);
+    try {
+      const imageUrls: string[] = [];
+    if (files.length > 0) {
+      for (const file of files) {
+        const uploaded = await uploadImage(file);
+        imageUrls.push(uploaded?.url as string);
+      }
     }
 
-    log("finished upload");
+    const campgroundUpdate = await Campground.findByIdAndUpdate(params.id, {
+      title: data.title,
+      location: data.location,
+      price: data.price,
+      description: data.description,
+      ...(files.length > 0 && { imageUrls })
+    }, { new: true });
 
-  // const newImageUrls: string[] = [];
+    await campgroundUpdate.save();
+    
+    return new NextResponse(JSON.stringify(campgroundUpdate), { status: 200});
+    } catch (error) {
+      return new NextResponse(JSON.stringify({ error: 'Fehler beim Aktualisieren des Campgrounds' }), { status: 500 });
+    }
+}
+
+
+// const newImageUrls: string[] = [];
   // for (const file of newFiles) {
   //   const uploaded = await uploadImage(file);
   //   newImageUrls.push(uploaded?.url as string);
   // }
 
   // campground.imageUrls = [...campground.imageUrls, ...newImageUrls];
-
-  const campgroundUpdate = await Campground.findByIdAndUpdate(params.id, {
-    title: data.title,
-    location: data.location,
-    price: data.price,
-    description: data.description,
-    // imageUrls: campground.imageUrls,
-  }, { new: true });
-
-  await campgroundUpdate.save();
-
-}
-
