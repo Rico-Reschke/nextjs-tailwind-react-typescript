@@ -18,6 +18,70 @@ export function MapBox() {
     });
 
     map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
+
+    map.on("load", async () => {
+      const res = await fetch("/api/campgrounds");
+      const fetchedData = await res.json();
+
+      console.log("Campground data:", fetchedData);
+
+      const geojsonData = {
+        type: "FeatureCollection",
+        features: fetchedData.campgrounds.map((campground: any) => ({
+          type: "Feature",
+          properties: {
+            title: campground.title,
+            description: campground.description,
+            price: campground.price,
+            location: campground.location,
+            images: campground.images,
+            id: campground._id,
+          },
+          geometry: {
+            type: "Point",
+            coordinates: campground.geometry.coordinates,
+          },
+        })),
+      };
+
+      map.addSource("campgrounds", {
+        type: "geojson",
+        data: geojsonData as any,
+        cluster: true,
+        clusterMaxZoom: 14,
+        clusterRadius: 50,
+      });
+
+      map.addLayer({
+        id: "clusters",
+        type: "circle",
+        source: "campgrounds",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-color": [
+            "step",
+            ["get", "point_count"],
+            "#51bbd6",
+            10,
+            "#f1f075",
+            30,
+            "#f28cb1",
+          ],
+          "circle-radius": ["step", ["get", "point_count"], 15, 10, 20, 30, 25],
+        },
+      });
+
+      map.addLayer({
+        id: "unclustered-point",
+        type: "circle",
+        source: "campgrounds",
+        filter: ["!", ["has", "point_count"]],
+        paint: {
+        },
+      });
+    });
+
+    return () => map.remove();
   }, []);
 
   return (
