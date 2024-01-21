@@ -44,6 +44,51 @@ export function MapBox() {
         })),
       };
 
+      map.on("click", "clusters", (e) => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ["clusters"],
+        });
+        if (!features.length) return;
+
+        const clusterId = features[0].properties?.cluster_id as number; // Annahme, dass cluster_id eine Zahl ist
+        const source = map.getSource("campgrounds") as mapboxgl.GeoJSONSource; // Typcast zu GeoJSONSource
+
+        // Überprüfe, ob getClusterExpansionZoom existiert und führe es aus, wenn ja
+        source.getClusterExpansionZoom &&
+          source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+            if (err) return;
+
+            const coordinates =
+              features[0].geometry?.type === "Point"
+                ? features[0].geometry.coordinates
+                : null;
+            if (!coordinates) return;
+
+            map.easeTo({
+              center: coordinates as [number, number], // Stelle sicher, dass coordinates ein Zahlenpaar ist
+              zoom: zoom,
+            });
+          });
+      });
+
+      map.on("click", "unclustered-point", (e) => {
+        const features = e.features;
+        if (!features || !features.length) return;
+
+        const coordinates =
+          features[0].geometry?.type === "Point"
+            ? features[0].geometry.coordinates
+            : null;
+        if (!coordinates) return;
+
+        const { title, description } = features[0].properties ?? {}; // Verwende leeres Objekt als Fallback
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates as [number, number])
+          .setHTML(`<strong>${title ?? ""}</strong><p>${description ?? ""}</p>`)
+          .addTo(map);
+      });
+
       map.addSource("campgrounds", {
         type: "geojson",
         data: geojsonData as any,
@@ -61,13 +106,25 @@ export function MapBox() {
           "circle-color": [
             "step",
             ["get", "point_count"],
-            "#51bbd6",
+            "#4fff00",
             10,
-            "#f1f075",
-            30,
-            "#f28cb1",
+            "#fffd00",
+            20,
+            "#ff1100",
           ],
-          "circle-radius": ["step", ["get", "point_count"], 15, 10, 20, 30, 25],
+          "circle-radius": ["step", ["get", "point_count"], 20, 10, 25, 35, 40],
+        },
+      });
+
+      map.addLayer({
+        id: "cluster-count",
+        type: "symbol",
+        source: "campgrounds",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": "{point_count_abbreviated}",
+          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+          "text-size": 12,
         },
       });
 
@@ -77,6 +134,10 @@ export function MapBox() {
         source: "campgrounds",
         filter: ["!", ["has", "point_count"]],
         paint: {
+          "circle-radius": 8, // Größe des Kreises in Pixel
+          "circle-color": "#ffffff", // Farbe des Kreises, optional
+          "circle-stroke-color": "#000000", // Farbe des Kreisrandes, optional
+          "circle-stroke-width": 2, // Dicke des Kreisrandes, optional
         },
       });
     });
