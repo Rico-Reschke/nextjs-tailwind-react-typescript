@@ -24,12 +24,17 @@ export async function POST(request: NextRequest) {
 
     const imageUrls: string[] = [];
     for (const file of files) {
-      log(file);
       const uploaded = await uploadImage(file);
       imageUrls.push(uploaded?.url as string);
     }
 
-    log("finished upload");
+    let coordinates = [0, 0];
+    if (typeof data.geometry === "string") {
+      const geometryData = JSON.parse(data.geometry);
+      if (geometryData && geometryData.coordinates) {
+        coordinates = geometryData.coordinates;
+      }
+    }
 
     const campground = await Campground.create({
       title: data.title,
@@ -38,13 +43,16 @@ export async function POST(request: NextRequest) {
       description: data.description,
       imageUrls,
       creator: userId,
+      geometry: {
+        type: "Point",
+        coordinates: coordinates
+      },
     });
 
     return NextResponse.json(campground, { status: 201 });
   } catch (error) {
-    return NextResponse.json(JSON.parse(JSON.stringify(error)), {
-      status: 500,
-    });
+    console.error("Error in POST function:", error);
+    return NextResponse.json({ error: JSON.stringify(error) }, { status: 500 });
   }
 }
 

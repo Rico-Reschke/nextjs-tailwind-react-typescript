@@ -9,18 +9,41 @@ const NewCampgroundForm = () => {
     const files = Array.from(data.images as FileList);
 
     try {
+      const geocodeResponse = await fetch(`/api/geocode?location=${encodeURIComponent(data.location)}`)
+      const geocodeData = await geocodeResponse.json();
+
+      if (!geocodeData || !geocodeData.features || !geocodeData.features.length) {
+        console.error('Keine gültigen Koordinaten gefunden');
+        return;
+      }
+
+      const coordinates = geocodeData.features[0].center;
+
+      console.log("Gefundene Koordinaten:", coordinates);
+
       const formData = new FormData();
       // console.log(formData)
       formData.append("title", data.title);
       formData.append("location", data.location);
       formData.append("price", data.price);
       formData.append("description", data.description);
+      formData.append("geometry", JSON.stringify({ type: "Point", coordinates }));
       files.forEach((file) => formData.append("files", file));
+
+      for (const [key, value] of formData.entries()) {
+        console.log("salat 2", key, value);
+      }
 
       const res = await fetch("/api/campgrounds", {
         method: "POST",
         body: formData,
       });
+
+      if (!res.ok) {
+        throw new Error(`Fehler: ${res.status}`);
+      }
+
+      alert("Campground erfolgreich erstellt.");
     } catch (error) {
       console.error(error);
     }
