@@ -12,25 +12,25 @@ import {
 const secondaryNavigation = [
   {
     name: "General",
-    href: "http://127.0.0.1:3000/campgrounds/settings/general",
+    href: "/campgrounds/settings/general",
     icon: UserCircleIcon,
     current: false,
   },
   {
     name: "Security",
-    href: "http://127.0.0.1:3000/campgrounds/settings/security",
+    href: "/campgrounds/settings/security",
     icon: FingerPrintIcon,
     current: false,
   },
   {
     name: "Notifications",
-    href: "http://127.0.0.1:3000/campgrounds/settings/notifications",
+    href: "/campgrounds/settings/notifications",
     icon: BellIcon,
     current: false,
   },
   {
     name: "Admin",
-    href: "http://127.0.0.1:3000/campgrounds/settings/admin",
+    href: "/campgrounds/settings/admin",
     icon: UsersIcon,
     current: true,
   },

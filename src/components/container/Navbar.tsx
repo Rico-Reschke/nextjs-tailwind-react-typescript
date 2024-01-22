@@ -344,7 +344,7 @@ const Navbar = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="http://127.0.0.1:3000/campgrounds/settings/"
+                                href="/campgrounds/settings/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700",
