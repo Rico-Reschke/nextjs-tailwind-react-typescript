@@ -1,7 +1,7 @@
+import { NextRequest, NextResponse } from 'next/server';
 import connectMongoDB from "@/libs/mongodb";
 import Review from "@/models/Review";
 import Campground from "@/models/Campground";
-import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth"
 import User from "@/models/User";
 
@@ -10,25 +10,32 @@ export async function POST(req: NextRequest, context: any) {
   const session = await getServerSession();
 
   const email = session?.user?.email;
-
   const user = await User.findOne({ email });
-  console.log("User:", user)
+  
   if (!user) {
-    return { status: 404, json: { error: 'User not found' } };
+    return new Response(JSON.stringify({ error: 'User not found' }), {
+      status: 404,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   try {
     const json = await req.json();
     const url = new URL(req.url);
     const campgroundId = url.pathname.split('/')[3];
-    // console.log(campgroundId);
-    // Find the campground by ID
     const campground = await Campground.findById(campgroundId);
+
     if (!campground) {
-      return NextResponse.json({ message: 'Campground not found' }, { status: 404 });
+      return new Response(JSON.stringify({ message: 'Campground not found' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
-    // Create and save the new review
     const review = await Review.create({
       content: json.content,
       rating: json.rating,
@@ -37,18 +44,19 @@ export async function POST(req: NextRequest, context: any) {
       user: user._id,
     });
 
-    console.log("Review:", review)
-
-    // console.log("Review object:", review);
-
-    // You might want to update the campground document here
-    // For example, pushing the review to a 'reviews' field in campground
-    // campground.reviews.push(review._id);
-    // await review.save();
-
-    return NextResponse.json(review, { status: 201 });
+    return new Response(JSON.stringify(review), {
+      status: 201,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return new Response(JSON.stringify({ message: error.message }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
 
@@ -57,10 +65,18 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
   try {
     const reviews = await Review.find({ campground: params.id }).populate('user', 'name');
-    return NextResponse.json({ reviews }, { status: 200 }); 
-
+    return new Response(JSON.stringify({ reviews }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error: any) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
-
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }

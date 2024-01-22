@@ -2,11 +2,34 @@
 
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
-import { json } from "stream/consumers";
 
 const UpdatePage = ({ params }: { params: { id: string } }) => {
-  const { register, handleSubmit } = useForm();
-  // console.log(params.id);
+  const { register, handleSubmit, setValue } = useForm();
+
+  const [campgroundData, setCampgroundData] = useState({
+    title: "",
+    location: "",
+    price: 0,
+    description: "",
+  });
+
+  useEffect(() => {
+    const fetchCampgroundData = async () => {
+      try {
+        const response = await fetch(`/api/campgrounds/${params.id}`);
+        const data = await response.json();
+        setCampgroundData(data);
+        setValue('title', data.title);
+        setValue('location', data.location);
+        setValue('price', data.price);
+        setValue('description', data.description);
+      } catch (error) {
+        console.error("Fehler beim Abrufen des Campgrounds:", error);
+      }
+    };
+
+    fetchCampgroundData();
+  }, [params.id, setValue]);
 
   const onSubmit = async (data: any) => {
     if (!params.id) {

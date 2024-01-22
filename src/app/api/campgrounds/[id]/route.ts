@@ -1,10 +1,7 @@
-import { authOptions } from "@/libs/auth";
 import { uploadImage } from "@/libs/cloudinary";
 import connectMongoDB from "@/libs/mongodb";
 import Campground from "@/models/Campground";
 import { v2 as cloudinary } from "cloudinary";
-import { log } from "console";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 cloudinary.config({
